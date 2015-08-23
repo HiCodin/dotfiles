@@ -22,6 +22,9 @@ Plug 'bling/vim-airline'
 " NERDTree {{{
 Plug 'scrooloose/nerdtree' 
 " }}}
+" NERDCommenter {{{
+Plug 'scrooloose/nerdcommenter'
+"}}}
 " CtrlP {{{
 Plug 'kien/ctrlp.vim'
 " }}}
@@ -48,9 +51,6 @@ Plug 'scrooloose/syntastic'
 "}}}
 " Javascript {{{
 Plug 'pangloss/vim-javascript'
-"}}}
-" NERD Commenter {{{
-Plug 'scrooloose/nerdcommenter'
 "}}}
 
 call plug#end()
