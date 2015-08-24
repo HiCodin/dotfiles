@@ -36,9 +36,7 @@ Symlink `dotfiles/vimrc` to `~/.vimrc` so that `Vim` takes effect.
 ln -s dotfiles/vimrc ~/.vimrc
 ```
 
-#### Plugins 
-
-[Vim Plug](https://github.com/junegunn/vim-plug) is used for managing plugins.
+Use [Vim Plug](https://github.com/junegunn/vim-plug) for plugin management.
 Install it, launch `Vim` and run `:PlugInstall`.
 
 ##### How Vim looks
