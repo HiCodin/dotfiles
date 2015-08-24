@@ -57,9 +57,9 @@ call plug#end()
 
 " }}}
                            
-                                  " ----------------------------------------------------------------------- "
-                                  "                          Plugins Configurations                         "
-                                  " ----------------------------------------------------------------------- "
+                                 " ----------------------------------------------------------------------- "
+                                 "                          Plugins Configurations                         "
+                                 " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
@@ -195,12 +195,15 @@ let g:syntastic_mode_map = { 'mode': 'active',
     \ 'active_filetypes': [],
     \ 'passive_filetypes': ['html'] }
 " }}}
+" Javascript {{{
+let g:javascript_conceal_function   = "ƒ"
+" }}}
 
-                                  " ----------------------------------------------------------------------- "
-                                  "                        Basic Vim Configurations                         "
-                                  " ----------------------------------------------------------------------- "
+                                 " ----------------------------------------------------------------------- "
+                                 "                            Vim Configurations                           "
+                                 " ----------------------------------------------------------------------- "
 
-" {{{
+" Vim Settings {{{
 
 " -------------------------------- "
 "            GUI Config            "
@@ -298,6 +301,10 @@ endif
 
 " changing leader key
 let mapleader = ","
+
+" setting conceal level and setting highlight
+set cole=1
+hi conceal ctermfg=222 ctermbg=none guifg=#DA4939 guibg=NONE
 
 " setting for vim default window size
 set lines=40 columns=150 
