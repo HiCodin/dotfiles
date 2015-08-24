@@ -4,7 +4,7 @@ My Vim Setup
 
 ## Installation
 
-Make a backup of your current vim setup first. 
+Make a backup of your current vim setup. 
 
 ```    
 mv ~/.vim ~/vim_backup
@@ -14,12 +14,12 @@ mv ~/.vimrc ~/vim_backup/vimrc
 After making backup, clone this repo to your home directory.
 
 ```
-git clone git@github.com:HiCodin/dotvim.git 
+git clone git@github.com:HiCodin/dotfiles.git
 ```
 
 #### Bash
 
-You will need [git-completion.bash](https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash) and  [git-prompt.sh](https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh) to see minimal git status in bash prompt.
+You will need [git-completion.bash](https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash) and [git-prompt.sh](https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh) to see git status.
 Download them and put them in your home directory.  
 Lastly, create symlink so that `dotfiles/bash_profile` points to `~/.bash_profile`.
 
