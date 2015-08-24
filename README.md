@@ -41,5 +41,5 @@ Install it, launch `Vim` and run `:PlugInstall`.
 
 ##### How Vim looks
 
-![vimrc](https://cloud.githubusercontent.com/assets/13816418/9427648/8fb59fe6-49ae-11e5-8ac0-181664c65d3d.png)
-![example](https://cloud.githubusercontent.com/assets/13816418/9427647/8f72f902-49ae-11e5-8cc7-f9baca9c6275.png)
+![vimrc](https://cloud.githubusercontent.com/assets/13816418/9438729/91657b62-4a86-11e5-9271-38d63ce08ff7.png)
+![example](https://cloud.githubusercontent.com/assets/13816418/9438978/bc1e89c8-4a88-11e5-8b3f-ffc644b26a4d.png)
