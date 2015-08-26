@@ -27,4 +27,7 @@ export PS1=$TEXT"\u"$WHITE" in"$BLUE" \w"'$(
 alias l='ls -lah'
 alias g='git'
 alias gs='git status'
+alias gad='git add'
+alias gcom='git commit -m'
+alias gph='git push origin master'
 __git_complete g __git_main
