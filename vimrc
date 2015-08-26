@@ -40,9 +40,6 @@ Plug 'Shougo/neocomplete.vim'
 " MatchTagAlways {{{
 Plug 'Valloric/MatchTagAlways'
 " }}}
-" polyglot {{{
-Plug 'sheerun/vim-polyglot'
-" }}}
 " GTFO {{{ 
 Plug 'justinmk/vim-gtfo' 
 " }}}
@@ -56,7 +53,170 @@ Plug 'pangloss/vim-javascript'
 call plug#end()
 
 " }}}
-                           
+
+                                 " ----------------------------------------------------------------------- "
+                                 "                            Vim Configurations                           "
+                                 " ----------------------------------------------------------------------- "
+
+" Vim Settings {{{
+
+" -------------------------------- "
+"            GUI Config            "
+" -------------------------------- "
+
+set guioptions-=L " no scrollbar on the left side
+set guioptions-=r " no scrollbar on the right side
+
+" -------------------------------- "
+"        Case Sensitivity          "
+" -------------------------------- "
+
+set ignorecase
+set smartcase
+
+" -------------------------------- "
+"         Backups Config           "
+" -------------------------------- " 
+
+set noswapfile
+set nobackup
+set nowritebackup
+set autowriteall
+
+" -------------------------------- "
+"         Folding Mapping          "
+" -------------------------------- "
+
+set foldmethod=marker
+set foldenable
+nnoremap <Space> za
+
+
+" ------------------------------ "
+"      Tabs,Indent settings      "
+" ------------------------------ "
+
+set expandtab
+set wrap
+set shiftwidth=4
+set tabstop=4 
+set autoindent " auto-indent
+set smartindent
+set smarttab  " use tabs at the start of the line, spaces elsewhere
+
+" ---------------------------------------------- "
+"        Making Split Navigation easier          "
+"   Use ctrl-[hjkl] to select the active split!  "
+" ---------------------------------------------- "
+
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
+" ---------------------------------------------- "
+"     Switch between Previours/Next Buffers      "
+" ---------------------------------------------- "
+
+map <C-Tab> :bnext<cr>
+map <C-S-Tab> :bprevious<cr>
+
+" ---------------------------------------------- "
+"              Auto-Reload Vimrc                 "
+" ---------------------------------------------- "
+
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost .vimrc source % 
+augroup END " }
+
+" ------------------------------------------------ "
+" setting for cursor in command mode / insert mode "
+" ------------------------------------------------ "
+
+set guicursor+=n:hor10-Cursor/lCursor 
+set guicursor+=i:hor10-Cursor/lCursor 
+set guicursor+=a:blinkon0
+
+" --------------------------------- "
+"                Misc               "
+" --------------------------------- "
+
+" syntax highlighting
+syntax enable   
+filetype plugin on
+
+" colorscheme 
+set background=dark
+if has('gui_running')
+    colorscheme sexy-railscasts
+else 
+    colorscheme base16-default
+endif
+
+" changing leader key
+let mapleader = ","
+
+" setting conceal level and setting highlight
+set cole=2
+set concealcursor=nc
+hi Conceal ctermfg=222 ctermbg=none guifg=#DA4939 guibg=NONE
+
+" setting for vim default window size
+set lines=40 columns=150 
+
+" hide mode status
+set noshowmode
+
+" open vimrc in a new tab
+nmap <leader>ev :tabedit $MYVIMRC<CR>  
+
+" Show Matching tags/parens/ ect
+set showmatch 
+
+" changing matching parenthesis colors
+highlight MatchParen guifg=white guibg=skyblue
+
+" font setting
+set guifont=Fira\ Mono\ Medium\ for\ Powerline:h12 "font setting
+ 
+" Allow backspacing over autoindent, line breaks and start of insert action
+set backspace=indent,eol,start
+
+" opening split windows/panes on the right side
+set splitright
+
+" show line numbers
+set number
+
+" warning if anything goes over 81 columns
+highlight ColorColumn ctermbg=red
+call matchadd('ColorColumn', '\%81v', 100)
+
+" highlight searches
+set hlsearch
+
+" do highlight for the search 
+set incsearch  
+
+" turn off highlight until next search 
+nnoremap <silent> <esc> :noh<cr><esc>
+
+" hide unused buffers
+set hidden
+
+" display buffer list and invoke buffer command 
+nnoremap ,b :ls<CR>:b
+
+" omni completion pop-up
+inoremap <leader>j <C-x><C-o>
+
+" move cursor by display lines in wrapped text
+nnoremap j gj
+nnoremap k gk
+
+" }}}
+                                 
                                  " ----------------------------------------------------------------------- "
                                  "                          Plugins Configurations                         "
                                  " ----------------------------------------------------------------------- "
@@ -141,13 +301,6 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 0
 
 " }}}
-" Emmet {{{
-
-" ------------------------------------------ "
-"           Emmet Key Mapping                "
-" ------------------------------------------ "
-let g:user_emmet_leader_key=','
-" }}}
 " Tagbar {{{
 
 " ------------------------------------------ "
@@ -169,6 +322,13 @@ let g:tagbar_type_css = {
     \ ]
 \ }
 " }}}
+" Emmet {{{
+
+" ------------------------------------------ "
+"           Emmet Key Mapping                "
+" ------------------------------------------ "
+let g:user_emmet_leader_key=','
+" }}}
 " GTFO {{{
 
 " -------------------------------------------------------- "
@@ -182,7 +342,7 @@ let g:gtfo#terminals = { 'mac' : 'iterm' }
 "             Setting for Syntastic              "
 " ---------------------------------------------- "
 nnoremap <leader>e :Errors<cr>
-nnoremap <leader>cl :lcl<cr>
+nnoremap <leader>ec :lcl<cr>
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_enable_signs=1
@@ -196,164 +356,6 @@ let g:syntastic_mode_map = { 'mode': 'active',
     \ 'passive_filetypes': ['html'] }
 " }}}
 " Javascript {{{
-let g:javascript_conceal_function   = "ƒ"
-" }}}
-
-                                 " ----------------------------------------------------------------------- "
-                                 "                            Vim Configurations                           "
-                                 " ----------------------------------------------------------------------- "
-
-" Vim Settings {{{
-
-" -------------------------------- "
-"            GUI Config            "
-" -------------------------------- "
-
-set guioptions-=L " no scrollbar on the left side
-set guioptions-=r " no scrollbar on the right side
-
-" -------------------------------- "
-"        Case Sensitivity          "
-" -------------------------------- "
-
-set ignorecase
-set smartcase
-
-" -------------------------------- "
-"         Backups Config           "
-" -------------------------------- " 
-
-set noswapfile
-set nobackup
-set nowritebackup
-set autowriteall
-
-" -------------------------------- "
-"         Folding Mapping          "
-" -------------------------------- "
-
-set foldmethod=marker
-set foldenable
-nnoremap <Space> za
-
-
-" ------------------------------ "
-"      Tabs,Indent settings      "
-" ------------------------------ "
-
-set expandtab
-set wrap
-set shiftwidth=4
-set tabstop=4 
-set autoindent " auto-indent
-set smartindent
-set smarttab  " use tabs at the start of the line, spaces elsewhere
-
-" ---------------------------------------------- "
-"        Making Split Navigation easier          "
-"   Use ctrl-[hjkl] to select the active split!  "
-" ---------------------------------------------- "
-
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
-
-" ---------------------------------------------- "
-"     Switch between Previours/Next Buffers      "
-" ---------------------------------------------- "
-
-map <C-Tab> :bnext<cr>
-map <C-S-Tab> :bprevious<cr>
-
-" ---------------------------------------------- "
-"              Auto-Reload Vimrc                 "
-" ---------------------------------------------- "
-
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost .vimrc source % 
-augroup END " }
-
-" ------------------------------------------------ "
-" setting for cursor in command mode / insert mode "
-" ------------------------------------------------ "
-
-set guicursor+=n:hor20-Cursor/lCursor 
-set guicursor+=i:hor20-Cursor/lCursor 
-set guicursor+=a:blinkon0
-
-" --------------------------------- "
-"                Misc               "
-" --------------------------------- "
-
-" syntax highlighting
-syntax enable   
-filetype plugin on
-
-" colorscheme 
-set background=dark
-if has('gui_running')
-    colorscheme sexy-railscasts
-else 
-    colorscheme base16-default
-endif
-
-" changing leader key
-let mapleader = ","
-
-" setting conceal level and setting highlight
-set cole=1
-hi conceal ctermfg=222 ctermbg=none guifg=#DA4939 guibg=NONE
-
-" setting for vim default window size
-set lines=40 columns=150 
-
-" open vimrc in a new tab
-nmap <leader>ev :tabedit $MYVIMRC<CR>  
-
-" Show Matching tags/parens/ ect
-set showmatch 
-
-" changing matching parenthesis colors
-highlight MatchParen guifg=white guibg=skyblue
-
-" font setting
-set guifont=Fira\ Mono\ Medium\ for\ Powerline:h12 "font setting
- 
-" Allow backspacing over autoindent, line breaks and start of insert action
-set backspace=indent,eol,start
-
-" opening split windows/panes on the right side
-set splitright
-
-" show line numbers
-set number
-
-" warning if anything goes over 81 columns
-highlight ColorColumn ctermbg=red
-call matchadd('ColorColumn', '\%81v', 100)
-
-" highlight searches
-set hlsearch
-
-" do highlight for the search 
-set incsearch  
-
-" turn off highlight until next search 
-nnoremap <silent> <esc> :noh<cr><esc>
-
-" hide unused buffers
-set hidden
-
-" display buffer list and invoke buffer command 
-nnoremap ,b :ls<CR>:b
-
-" omni completion pop-up
-inoremap <leader>j <C-x><C-o>
-
-" move cursor by display lines in wrapped text
-nnoremap j gj
-nnoremap k gk
-
+let g:javascript_conceal=1
+let g:javascript_conceal_function="ƒ"
 " }}}
