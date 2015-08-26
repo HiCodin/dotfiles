@@ -165,8 +165,9 @@ hi Conceal ctermfg=222 ctermbg=none guifg=#DA4939 guibg=NONE
 " setting for vim default window size
 set lines=40 columns=150 
 
-" hide mode status
+" hide mode status as well as completion message
 set noshowmode
+set shortmess+=c
 
 " open vimrc in a new tab
 nmap <leader>ev :tabedit $MYVIMRC<CR>  
