@@ -147,7 +147,7 @@ syntax enable
 filetype plugin on
 
 " colorscheme 
-set background=dark
+"set background=dark
 if has('gui_running')
     colorscheme sexy-railscasts
 else 
@@ -259,6 +259,7 @@ highlight MatchTag ctermfg=black ctermbg=blue guifg=white guibg=skyblue
 set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#show_tab_nr = 0
 let g:airline_theme='ubaryd'
 let g:airline_mode_map = {
