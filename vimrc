@@ -157,6 +157,9 @@ endif
 " changing leader key
 let mapleader = ","
 
+" copy to clipboard
+set clipboard=unnamed
+
 " setting conceal level and setting highlight
 set cole=2
 set concealcursor=nc
@@ -360,4 +363,5 @@ let g:syntastic_mode_map = { 'mode': 'active',
 " Javascript {{{
 let g:javascript_conceal=1
 let g:javascript_conceal_function="ƒ"
+let g:javascript_conceal_var="ㇺ"
 " }}}
