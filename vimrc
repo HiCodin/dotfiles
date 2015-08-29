@@ -212,9 +212,6 @@ set hidden
 " display buffer list and invoke buffer command 
 nnoremap ,b :ls<CR>:b
 
-" omni completion pop-up
-inoremap <leader>j <C-x><C-o>
-
 " move cursor by display lines in wrapped text
 nnoremap j gj
 nnoremap k gk
