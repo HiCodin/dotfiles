@@ -19,7 +19,7 @@ git clone git@github.com:HiCodin/dotfiles.git
 
 #### Bash
 
-You will need [git-completion.bash](https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash) and [git-prompt.sh](https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh) to see git status.
+You will need [git-prompt.sh](https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh) to see git status.
 Download and put them in your home directory. Lastly, create symlink so that `dotfiles/bash_profile` points to `~/.bash_profile`.
 
 ```
