@@ -193,6 +193,11 @@ set splitright
 " show line numbers
 set number
 
+" highlight current line number
+set cursorline
+hi clear CursorLine
+hi CursorLineNR ctermfg=222 guifg=#FFC66D
+
 " warning if anything goes over 81 columns
 highlight ColorColumn ctermbg=red
 call matchadd('ColorColumn', '\%81v', 100)
