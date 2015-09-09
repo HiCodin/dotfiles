@@ -46,8 +46,9 @@ Plug 'justinmk/vim-gtfo'
 " Syntastic {{{
 Plug 'scrooloose/syntastic'
 "}}}
-" Javascript {{{
+" Javascript & related libraries {{{
 Plug 'pangloss/vim-javascript'
+Plug 'othree/javascript-libraries-syntax.vim'
 "}}}
 
 call plug#end()
