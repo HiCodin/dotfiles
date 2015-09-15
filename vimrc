@@ -5,7 +5,7 @@
 " }}}
 " Compatible Mode for Vim {{{
 
-set nocompatible " but do we even need this ? i mean once you have .vimrc file, the vim is set to nocompatible mode anyway. 
+set nocompatible 
 
 " }}}
 " Plugins {{{ 
@@ -91,7 +91,16 @@ set autowriteall
 set foldmethod=marker
 set foldenable
 nnoremap <Space> za
-
+function! NeatFoldText()
+  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '(' . ( lines_count ) . ')'
+  let foldtextstart = strpart('+' . line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(' ', 4 )
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend 
+endfunction
+set foldtext=NeatFoldText()
 
 " ------------------------------ "
 "      Tabs,Indent settings      "
@@ -367,4 +376,18 @@ let g:syntastic_mode_map = { 'mode': 'active',
 let g:javascript_conceal=1
 let g:javascript_conceal_function="ƒ"
 let g:javascript_conceal_var="ㇺ"
+function! FoldText()
+  let line = ' ' . substitute(getline(v:foldstart), '{.*', '{...}', ' ') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '(' . ( lines_count ) . ')'
+  let foldchar = matchstr(&fillchars, 'fold:\')
+  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(' ', 4 )
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend . ' '
+endfunction
+augroup jsfolding
+  autocmd!
+  autocmd FileType javascript setlocal foldenable|setlocal foldmethod=syntax |setlocal foldtext=FoldText()
+augroup END
 " }}}
