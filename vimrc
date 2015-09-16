@@ -50,7 +50,9 @@ Plug 'scrooloose/syntastic'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 "}}}
-
+" Indent Line {{{
+Plug 'Yggdroot/indentLine'
+"}}}
 call plug#end()
 
 " }}}
@@ -157,7 +159,6 @@ syntax enable
 filetype plugin on
 
 " colorscheme 
-"set background=dark
 if has('gui_running')
     colorscheme sexy-railscasts
 else 
@@ -170,10 +171,11 @@ let mapleader = ","
 " copy to clipboard
 set clipboard=unnamed
 
-" setting conceal level and setting highlight
-set cole=2
-set concealcursor=nc
-hi Conceal ctermfg=222 ctermbg=none guifg=#DA4939 guibg=NONE
+" highlight comment in cterm
+hi Comment ctermfg=white
+
+" highlight folded text in gui and cterm
+hi Folded ctermfg=222 guifg=#FFC66D
 
 " setting for vim default window size
 set lines=40 columns=150 
@@ -189,7 +191,7 @@ nmap <leader>ev :tabedit $MYVIMRC<CR>
 set showmatch 
 
 " changing matching parenthesis colors
-highlight MatchParen guifg=white guibg=skyblue
+highlight MatchParen ctermfg=white guifg=white guibg=skyblue
 
 " font setting
 set guifont=Fira\ Mono\ Medium\ for\ Powerline:h12 "font setting
@@ -263,7 +265,7 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " --------------------------------------------- "
 let g:mta_use_matchparen_group = 0
 let g:mta_set_default_matchtag_color = 0
-highlight MatchTag ctermfg=black ctermbg=blue guifg=white guibg=skyblue
+highlight MatchTag ctermfg=208 guifg=#FF4500
 
 " }}}
 " Vim-Airline {{{
@@ -373,9 +375,6 @@ let g:syntastic_mode_map = { 'mode': 'active',
     \ 'passive_filetypes': ['html'] }
 " }}}
 " Javascript {{{
-let g:javascript_conceal=1
-let g:javascript_conceal_function="ƒ"
-let g:javascript_conceal_var="ㇺ"
 function! FoldText()
   let line = ' ' . substitute(getline(v:foldstart), '{.*', '{...}', ' ') . ' '
   let lines_count = v:foldend - v:foldstart + 1
@@ -390,4 +389,10 @@ augroup jsfolding
   autocmd!
   autocmd FileType javascript setlocal foldenable|setlocal foldmethod=syntax |setlocal foldtext=FoldText()
 augroup END
+" }}}
+" Indent Line {{{
+let g:indentLine_color_term = 236
+let g:indentLine_color_gui = "#333333"
+let g:indentLine_char ='' 
+let g:indentLine_fileTypeExclude = ['vim']
 " }}}
