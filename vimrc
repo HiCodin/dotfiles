@@ -381,13 +381,31 @@ function! FoldText()
   let lines_count_text = '(' . ( lines_count ) . ')'
   let foldchar = matchstr(&fillchars, 'fold:\')
   let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-  let foldtextend = lines_count_text . repeat(' ', 4 )
+  let foldtextend = lines_count_text . repeat(' ', 6 )
   let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
   return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend . ' '
 endfunction
 augroup jsfolding
   autocmd!
   autocmd FileType javascript setlocal foldenable|setlocal foldmethod=syntax |setlocal foldtext=FoldText()
+augroup END
+" }}}
+" CSS {{{
+function! CSSFoldText()
+  let line = substitute(getline(v:foldstart), '{.*', '{...}', ' ') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '(' . ( lines_count ) . ')'
+  let foldchar = matchstr(&fillchars, 'fold:\')
+  let foldtextstart = strpart(line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(' ', 6 )
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend . ' '
+endfunction
+augroup ft_css
+    au! 
+    au Filetype css setlocal foldmethod=marker
+    au Filetype css setlocal foldmarker={,}
+    au FileType css setlocal foldtext=CSSFoldText()
 augroup END
 " }}}
 " Indent Line {{{
