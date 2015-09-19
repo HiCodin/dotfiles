@@ -8,6 +8,13 @@
 set nocompatible 
 
 " }}}
+" Plug Setup {{{
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+" }}}
 " Plugins {{{ 
 
 call plug#begin('~/.vim/plugged')
@@ -137,10 +144,10 @@ map <C-S-Tab> :bprevious<cr>
 "              Auto-Reload Vimrc                 "
 " ---------------------------------------------- "
 
-augroup reload_vimrc " {
+augroup reload_vimrc
     autocmd!
     autocmd BufWritePost .vimrc source % 
-augroup END " }
+augroup END
 
 " ------------------------------------------------ "
 " setting for cursor in command mode / insert mode "
