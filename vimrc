@@ -71,6 +71,16 @@ call plug#end()
 " Vim Settings {{{
 
 " -------------------------------- "
+"          colorscheme             "
+" -------------------------------- "
+
+if has('gui_running')
+    colorscheme sexy-railscasts
+else 
+    colorscheme base16-default
+endif
+
+" -------------------------------- "
 "            GUI Config            "
 " -------------------------------- "
 
@@ -161,16 +171,6 @@ set guicursor+=a:blinkon0
 "                Misc               "
 " --------------------------------- "
 
-" syntax highlighting
-syntax enable   
-filetype plugin on
-
-" colorscheme 
-if has('gui_running')
-    colorscheme sexy-railscasts
-else 
-    colorscheme base16-default
-endif
 
 " changing leader key
 let mapleader = ","
