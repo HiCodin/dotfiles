@@ -80,7 +80,8 @@ endif
 " -------------------------------- "
 "            GUI Config            "
 " -------------------------------- "
-
+set guioptions-=m
+set guioptions-=T
 set guioptions-=L " no scrollbar on the left side
 set guioptions-=r " no scrollbar on the right side
 
@@ -186,7 +187,6 @@ set lines=40 columns=150
 
 " hide mode status as well as completion message
 set noshowmode
-set shortmess+=c
 
 " open vimrc in a new tab
 nmap <leader>ev :tabedit $MYVIMRC<CR>  
@@ -198,7 +198,7 @@ set showmatch
 highlight MatchParen ctermfg=white guifg=white guibg=skyblue
 
 " font setting
-set guifont=Fira\ Mono\ Medium\ for\ Powerline:h12 "font setting
+set guifont=Fira\ Mono\ Medium\ for\ Powerline\ 10
  
 " Allow backspacing over autoindent, line breaks and start of insert action
 set backspace=indent,eol,start
