@@ -1,6 +1,8 @@
 source ~/.git-completion.bash
 source ~/.git-prompt.sh
 
+[ -f $HOME/.bashrc ] && source $HOME/.bashrc
+
 ORANGE="\[\e[38;5;202m\]"
 WHITE="\[\e[38;5;15m\]"
 RESET="\[\e[24m\]"
@@ -24,7 +26,6 @@ export PS1=$TEXT"\u"$WHITE" in"$BLUE" \w"'$(
     else echo "'$GREEN'"$(__git_ps1 " (%s)")
     fi)'$WHITE" -> "
 
-alias l='ls -lah'
 alias g='git'
 alias gs='git status'
 alias ga='git add'
