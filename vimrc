@@ -195,7 +195,7 @@ nmap <leader>ev :tabedit $MYVIMRC<CR>
 set showmatch 
 
 " changing matching parenthesis colors
-highlight MatchParen ctermfg=white guifg=white guibg=skyblue
+highlight MatchParen ctermfg=white guifg=#FF4500 guibg=NONE
 
 " font setting
 set guifont=Fira\ Mono\ Medium\ for\ Powerline\ 10
