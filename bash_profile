@@ -5,11 +5,12 @@ source ~/.git-prompt.sh
 
 ORANGE="\[\e[38;5;202m\]"
 WHITE="\[\e[38;5;15m\]"
-RESET="\[\e[24m\]"
+RESET="\[\e[0m\]"
 BLUE="\[\e[38;5;75m\]"
 TEXT="\[\e[38;5;208m\]"
 GREEN="\[\e[38;5;46m\]"
 RED="\[\e[38;5;196m\]"
+ARROW="\342\206\222"
 GIT_PS1_SHOWDIRTYSTATE=true
 export LS_OPTIONS='--color=auto'
 export CLICOLOR='Yes'
@@ -24,7 +25,7 @@ export PS1=$TEXT"\u"$WHITE" in"$BLUE" \w"'$(
     then echo "'$ORANGE'"$(__git_ps1 " (%s)")
     # the state is clean, changes are commited
     else echo "'$GREEN'"$(__git_ps1 " (%s)")
-    fi)'$WHITE" -> "
+    fi)'$ORANGE" $ARROW$RESET "
 
 alias g='git'
 alias gs='git status'
@@ -34,3 +35,4 @@ alias gp='git push origin master'
 __git_complete g __git_main
 
 alias python=python3
+alias studio=/opt/android-studio/bin/studio.sh
