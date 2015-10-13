@@ -186,7 +186,7 @@ hi Comment ctermfg=white
 hi Folded ctermfg=222 guifg=#FFC66D
 
 " setting for vim default window size
-" set lines=40 columns=150 
+"set lines=40 columns=150
 
 " hide mode status as well as completion message
 set noshowmode
