@@ -50,6 +50,9 @@ Plug 'Valloric/MatchTagAlways'
 " Syntastic {{{
 Plug 'scrooloose/syntastic'
 "}}}
+" Fugitive {{{
+Plug 'tpope/vim-fugitive'
+"}}}
 " Javascript & related libraries {{{
 Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
@@ -183,7 +186,7 @@ hi Comment ctermfg=white
 hi Folded ctermfg=222 guifg=#FFC66D
 
 " setting for vim default window size
-set lines=40 columns=150 
+" set lines=40 columns=150 
 
 " hide mode status as well as completion message
 set noshowmode
@@ -282,6 +285,12 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#show_tab_nr = 0
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_section_b = airline#section#create_left(['file'])
+let g:airline_section_c = ''
+let g:airline_section_x = ''
+let g:airline_section_y = airline#section#create_left(['filetype']) 
+let g:airline_section_z = airline#section#create(['branch'])
 let g:airline_theme='ubaryd'
 let g:airline_mode_map = {
        \ '__' : '-',
