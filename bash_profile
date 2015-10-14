@@ -11,12 +11,13 @@ TEXT="\[\e[38;5;208m\]"
 GREEN="\[\e[38;5;46m\]"
 RED="\[\e[38;5;196m\]"
 ARROW="\342\236\234"
+USER="\342\231\232"
 GIT_PS1_SHOWDIRTYSTATE=true
 export LS_OPTIONS='--color=auto'
 export CLICOLOR='Yes'
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
-export PS1=$TEXT"\u"$WHITE" in"$BLUE" \w"'$(
+export PS1=$TEXT"✣ "$WHITE"in"$BLUE" \w"'$(
     if [[ $(__git_ps1) =~ \*\)$ ]]
     # a file has been modified but not added
     then echo "'$RED'"$(__git_ps1 " (%s)")
