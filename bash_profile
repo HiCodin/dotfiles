@@ -10,7 +10,7 @@ BLUE="\[\e[38;5;75m\]"
 TEXT="\[\e[38;5;208m\]"
 GREEN="\[\e[38;5;46m\]"
 RED="\[\e[38;5;196m\]"
-ARROW="\342\206\222"
+ARROW="\342\236\234"
 GIT_PS1_SHOWDIRTYSTATE=true
 export LS_OPTIONS='--color=auto'
 export CLICOLOR='Yes'
