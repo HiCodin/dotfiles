@@ -180,7 +180,7 @@ let mapleader = ","
 set clipboard=unnamed
 
 " highlight comment in cterm
-hi Comment ctermfg=white
+"hi Comment ctermfg=white
 
 " highlight folded text in gui and cterm
 hi Folded ctermfg=222 guifg=#FFC66D
@@ -241,7 +241,7 @@ nnoremap j gj
 nnoremap k gk
 
 " }}}
-                                 
+				 
                                  " ----------------------------------------------------------------------- "
                                  "                          Plugins Configurations                         "
                                  " ----------------------------------------------------------------------- "
