@@ -63,7 +63,7 @@ call plug#end()
 " }}}
 
                                          " ----------------------------------------------------------------------- "
-                                         "                            Vim Configurations                           "
+                                         "                                Vim Settings                             "
                                          " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
@@ -182,7 +182,7 @@ set clipboard=unnamed
 "hi Comment ctermfg=white
 
 " highlight folded text in gui and cterm
-hi Folded ctermfg=222 ctermbg=NONE guifg=#FFC66D
+hi Folded ctermfg=222 ctermbg=235 guifg=#FFC66D
 
 " setting for vim default window size
 "set lines=40 columns=150
@@ -244,7 +244,7 @@ nnoremap k gk
 " }}}
 				 
                                          " ----------------------------------------------------------------------- "
-                                         "                          Plugins Configurations                         "
+                                         "                              Plugins Settings                           "
                                          " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
