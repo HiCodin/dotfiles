@@ -26,7 +26,7 @@ Download and put it in your home directory. Symlink `~/dotfiles/bash_profile` to
 ln -s ~/dotfiles/bash_profile ~/.bash_profile
 source ~/.bash_profile
 ```
-![simple-bash-prompt](https://raw.githubusercontent.com/HiCodin/dotfiles/master/simple-bash-prompt.png)
+![simple-bash-prompt](https://cloud.githubusercontent.com/assets/13816418/10546520/6a7c41be-7454-11e5-943b-b3bee38940bc.png)
 
 #### Vim
 Symlink `~/dotfiles/vimrc` to `~/.vimrc`.
