@@ -1,7 +1,5 @@
 " Info {{{
-
 " Author: HiCodin
-
 " }}}
 " Compatible Mode for Vim {{{
 
@@ -77,6 +75,7 @@ call plug#end()
 if has('gui_running')
     colorscheme sexy-railscasts
 else 
+    set background=dark
     colorscheme base16-default
 endif
 
@@ -183,13 +182,14 @@ set clipboard=unnamed
 "hi Comment ctermfg=white
 
 " highlight folded text in gui and cterm
-hi Folded ctermfg=222 guifg=#FFC66D
+hi Folded ctermfg=222 ctermbg=NONE guifg=#FFC66D
 
 " setting for vim default window size
 "set lines=40 columns=150
 
 " hide mode status as well as completion message
 set noshowmode
+set shortmess+=c
 
 " open vimrc in a new tab
 nmap <leader>ev :tabedit $MYVIMRC<CR>  
@@ -211,14 +211,15 @@ set splitright
 
 " show line numbers
 set number
+hi LineNr ctermbg=NONE
 
 " highlight current line number
 set cursorline
 hi clear CursorLine
-hi CursorLineNR ctermfg=222 guifg=#FFC66D
+hi CursorLineNR ctermfg=222 ctermbg=NONE guifg=#FFC66D
 
 " warning if anything goes over 81 columns
-highlight ColorColumn ctermbg=red
+highlight ColorColumn ctermbg=red 
 call matchadd('ColorColumn', '\%81v', 100)
 
 " highlight searches
@@ -261,7 +262,9 @@ inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
-
+hi Pmenu ctermbg=8
+hi PmenuSel ctermbg=1
+hi PmenuSbar ctermbg=0
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 " }}}
