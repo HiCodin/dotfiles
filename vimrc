@@ -114,7 +114,7 @@ function! NeatFoldText()
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
   let lines_count = v:foldend - v:foldstart + 1
   let lines_count_text = '(' . ( lines_count ) . ')'
-  let foldtextstart = strpart('+' . line, 0, (winwidth(0)*2)/3)
+  let foldtextstart = strpart('✦' . line, 0, (winwidth(0)*2)/3)
   let foldtextend = lines_count_text . repeat(' ', 4 )
   let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
   return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend 
