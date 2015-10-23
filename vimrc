@@ -184,12 +184,10 @@ set clipboard=unnamed
 " highlight folded text in gui and cterm
 hi Folded ctermfg=222 ctermbg=235 guifg=#FFC66D
 
-" setting for vim default window size
-"set lines=40 columns=150
-
 " hide mode status as well as completion message
 set noshowmode
-set shortmess+=c
+set shortmess-=m
+set shortmess+=cWIs
 
 " open vimrc in a new tab
 nmap <leader>ev :tabedit $MYVIMRC<CR>  
