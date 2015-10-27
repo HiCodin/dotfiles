@@ -239,6 +239,9 @@ nnoremap ,b :ls<CR>:b
 nnoremap j gj
 nnoremap k gk
 
+" reduce delay when switching modes
+set timeoutlen=1000 ttimeoutlen=0
+
 " }}}
 				 
                                          " ----------------------------------------------------------------------- "
