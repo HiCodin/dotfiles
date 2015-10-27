@@ -30,7 +30,7 @@ source ~/.bash_profile
 
 #### Vim
 Require `Vim` to be complied with `Lua` for [Neocomplete](https://github.com/Shougo/neocomplete.vim). <br>
-Require linting tools for `Syntastic` and [Exuberant Ctags](http://ctags.sourceforge.net/) for `Tagbar` to work. <br>
+Require linting tools for `Syntastic` and [Exuberant Ctags](http://ctags.sourceforge.net/) for `Tagbar` to work. <br><br>
 Symlink `~/dotfiles/vimrc` to `~/.vimrc`.
 ```
 ln -s ~/dotfiles/vimrc ~/.vimrc
