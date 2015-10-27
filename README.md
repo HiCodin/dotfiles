@@ -34,7 +34,7 @@ Symlink `~/dotfiles/vimrc` to `~/.vimrc`.
 ln -s ~/dotfiles/vimrc ~/.vimrc
 ```
 Plugins are managed by [Vim-Plug](https://github.com/junegunn/vim-plug).
-Save `~/.vimrc` in `Vim` and run `:PlugInstall`. 
+Save `~/.vimrc` in `Vim` and run `:PlugInstall`. <br><br>
 You will need linting tools for `syntastic` to work and [exuberant ctags](http://ctags.sourceforge.net/) for `Tagbar` to work.
 
 ![vimrc](https://cloud.githubusercontent.com/assets/13816418/10545823/a6b80518-7450-11e5-9659-8c44d085ff4c.png)
