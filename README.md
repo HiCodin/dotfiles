@@ -37,5 +37,4 @@ ln -s ~/dotfiles/vimrc ~/.vimrc
 Plugins are managed by [Vim-Plug](https://github.com/junegunn/vim-plug).
 Save `~/.vimrc` in `Vim` and run `:PlugInstall`. <br>
 
-#### Screenshot
 ![vimrc](https://cloud.githubusercontent.com/assets/13816418/10838179/d787374a-7ef0-11e5-85c9-8b804541e5d2.png)
