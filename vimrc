@@ -62,9 +62,9 @@ call plug#end()
 
 " }}}
 
-                                         " ----------------------------------------------------------------------- "
-                                         "                                Vim Settings                             "
-                                         " ----------------------------------------------------------------------- "
+                    " ----------------------------------------------------------------------- "
+                    "                               Vim Settings                              "
+                    " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
 
@@ -217,8 +217,8 @@ hi clear CursorLine
 hi CursorLineNR ctermfg=222 ctermbg=NONE guifg=#FFC66D
 
 " warning if anything goes over 81 columns
-highlight ColorColumn ctermbg=red 
-call matchadd('ColorColumn', '\%81v', 100)
+"highlight ColorColumn ctermbg=red 
+"call matchadd('ColorColumn', '\%81v', 100)
 
 " highlight searches
 set hlsearch
@@ -242,11 +242,16 @@ nnoremap k gk
 " reduce delay when switching modes
 set timeoutlen=1000 ttimeoutlen=0
 
+" Make a simple 'search' text object.
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+
 " }}}
 				 
-                                         " ----------------------------------------------------------------------- "
-                                         "                              Plugins Settings                           "
-                                         " ----------------------------------------------------------------------- "
+                    " ----------------------------------------------------------------------- "
+                    "                              Plugins Settings                           "
+                    " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
