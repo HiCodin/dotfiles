@@ -62,9 +62,9 @@ call plug#end()
 
 " }}}
 
-                    " ----------------------------------------------------------------------- "
-                    "                               Vim Settings                              "
-                    " ----------------------------------------------------------------------- "
+                                              " ----------------------------------------------------------------------- "
+                                              "                               Vim Settings                              "
+                                              " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
 
@@ -211,14 +211,17 @@ set splitright
 set number
 hi LineNr ctermbg=NONE
 
+" change SignColumn color
+hi SignColumn ctermbg=NONE
+
 " highlight current line number
 set cursorline
 hi clear CursorLine
 hi CursorLineNR ctermfg=222 ctermbg=NONE guifg=#FFC66D
 
 " warning if anything goes over 81 columns
-"highlight ColorColumn ctermbg=red 
-"call matchadd('ColorColumn', '\%81v', 100)
+highlight ColorColumn ctermbg=red 
+call matchadd('ColorColumn', '\%81v', 100)
 
 " highlight searches
 set hlsearch
@@ -242,16 +245,16 @@ nnoremap k gk
 " reduce delay when switching modes
 set timeoutlen=1000 ttimeoutlen=0
 
-" Make a simple 'search' text object.
+" make a simple 'search' and 'replace' text object.
 vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
 
 " }}}
 				 
-                    " ----------------------------------------------------------------------- "
-                    "                              Plugins Settings                           "
-                    " ----------------------------------------------------------------------- "
+                                              " ----------------------------------------------------------------------- "
+                                              "                              Plugins Settings                           "
+                                              " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
@@ -337,7 +340,7 @@ nnoremap <leader>f :NERDTreeFind<cr>
 " ------------------------------------ "
 "            Ctrl-P settings           "
 " ------------------------------------ "
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 0
 
