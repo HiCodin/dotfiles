@@ -17,7 +17,7 @@ export LS_OPTIONS='--color=auto'
 export CLICOLOR='Yes'
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
-export PS1=$TEXT"✣ "$WHITE"in"$BLUE" \w"'$(
+export PS1=$TEXT"\u "$WHITE"in"$BLUE" \w"'$(
     if [[ $(__git_ps1) =~ \*\)$ ]]
     # a file has been modified but not added
     then echo "'$RED'"$(__git_ps1 " (%s)")

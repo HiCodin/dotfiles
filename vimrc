@@ -7,19 +7,21 @@ set nocompatible
 
 " }}}
 " Vim-Plug Installation {{{
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
+
 " }}}
 " Plugins {{{ 
 
 call plug#begin('~/.vim/plugged')
 
 " Colorschemes {{{
-Plug 'oguzbilgic/sexy-railscasts-theme' "colorscheme : sexy-railscasts-theme
-Plug 'chriskempson/base16-vim' "colorscheme : base16 family
+Plug 'oguzbilgic/sexy-railscasts-theme'
+Plug 'chriskempson/base16-vim'
 " }}}
 " Vim Airline {{{
 Plug 'bling/vim-airline'
@@ -48,23 +50,21 @@ Plug 'Valloric/MatchTagAlways'
 " Syntastic {{{
 Plug 'scrooloose/syntastic'
 "}}}
-" Fugitive {{{
-Plug 'tpope/vim-fugitive'
-"}}}
-" Javascript & related libraries {{{
+" JS & related libraries {{{
 Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 "}}}
 " Indent Line {{{
 Plug 'Yggdroot/indentLine'
 "}}}
+
 call plug#end()
 
 " }}}
 
-                                              " ----------------------------------------------------------------------- "
-                                              "                               Vim Settings                              "
-                                              " ----------------------------------------------------------------------- "
+                          " ----------------------------------------------------------------------- "
+                          "                               Vim Settings                              "
+                          " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
 
@@ -76,7 +76,7 @@ if has('gui_running')
     colorscheme sexy-railscasts
 else 
     set background=dark
-    colorscheme base16-default
+    colorscheme base16-railscasts
 endif
 
 " -------------------------------- "
@@ -110,16 +110,53 @@ set autowriteall
 set foldmethod=marker
 set foldenable
 nnoremap <Space> za
+
+" Foldtext for vimrc {{{
 function! NeatFoldText()
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
   let lines_count = v:foldend - v:foldstart + 1
   let lines_count_text = '(' . ( lines_count ) . ')'
   let foldtextstart = strpart('✦' . line, 0, (winwidth(0)*2)/3)
-  let foldtextend = lines_count_text . repeat(' ', 4 )
+  let foldtextend = lines_count_text . repeat(' ', 2 )
   let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
   return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend 
 endfunction
 set foldtext=NeatFoldText()
+" }}}
+" Javascript {{{
+function! FoldText()
+  let line = ' ' . substitute(getline(v:foldstart), '{.*', '{...}', ' ') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '(' . ( lines_count ) . ')'
+  let foldchar = matchstr(&fillchars, 'fold:\')
+  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(' ', 2 )
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend . ' '
+endfunction
+augroup jsfolding
+  autocmd!
+  autocmd FileType javascript setlocal foldenable|setlocal foldmethod=syntax |setlocal foldtext=FoldText()
+augroup END
+" }}}
+" CSS {{{
+function! CSSFoldText()
+  let line = substitute(getline(v:foldstart), '{.*', '{...}', ' ') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '(' . ( lines_count ) . ')'
+  let foldchar = matchstr(&fillchars, 'fold:\')
+  let foldtextstart = strpart(line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(' ', 2 )
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend . ' '
+endfunction
+augroup ft_css
+    au! 
+    au Filetype css setlocal foldmethod=marker
+    au Filetype css setlocal foldmarker={,}
+    au FileType css setlocal foldtext=CSSFoldText()
+augroup END
+" }}}
 
 " ------------------------------ "
 "      Tabs,Indent settings      "
@@ -142,13 +179,6 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
-
-" ---------------------------------------------- "
-"     Switch between Previours/Next Buffers      "
-" ---------------------------------------------- "
-
-map <C-Tab> :bnext<cr>
-map <C-S-Tab> :bprevious<cr>
 
 " ---------------------------------------------- "
 "              Auto-Reload Vimrc                 "
@@ -178,9 +208,6 @@ let mapleader = ","
 " copy to clipboard
 set clipboard=unnamed
 
-" highlight comment in cterm
-"hi Comment ctermfg=white
-
 " highlight folded text in gui and cterm
 hi Folded ctermfg=222 ctermbg=235 guifg=#FFC66D
 
@@ -207,27 +234,46 @@ set backspace=indent,eol,start
 " opening split windows/panes on the right side
 set splitright
 
-" show line numbers
-set number
-hi LineNr ctermbg=NONE
+" change color and character of vertical split bar
+set fillchars=vert:\│
+hi VertSplit ctermfg=black ctermbg=NONE
 
 " change SignColumn color
 hi SignColumn ctermbg=NONE
 
-" highlight current line number
-set cursorline
-hi clear CursorLine
-hi CursorLineNR ctermfg=222 ctermbg=NONE guifg=#FFC66D
-
 " warning if anything goes over 81 columns
-highlight ColorColumn ctermbg=red 
-call matchadd('ColorColumn', '\%81v', 100)
+"highlight ColorColumn ctermbg=red 
+"call matchadd('ColorColumn', '\%81v', 100)
 
 " highlight searches
 set hlsearch
+hi Search ctermfg=black ctermbg=white
 
-" do highlight for the search 
-set incsearch  
+" Show next match 
+set incsearch
+hi IncSearch ctermfg=black ctermbg=white
+
+" blink highlight searches
+nnoremap <silent> n n:call HLNext(0.1)<cr>
+nnoremap <silent> N N:call HLNext(0.1)<cr>
+
+function! HLNext (blinktime)
+  let target_pat = '\c\%#'.@/
+  let ring = matchadd('ErrorMsg', target_pat, 101)
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+  call matchdelete(ring)
+  redraw
+endfunction
+
+" change visual mode color
+hi Visual ctermbg=white ctermfg=black
+
+" change quickfix window line color
+hi LineNr ctermbg=NONE ctermfg=yellow
+
+"  clear cursorline highlight
+hi clear CursorLine
 
 " turn off highlight until next search 
 nnoremap <silent> <esc> :noh<cr><esc>
@@ -250,11 +296,15 @@ vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
 
+" always on sign column
+autocmd BufEnter * sign define dummy
+autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
+
 " }}}
 				 
-                                              " ----------------------------------------------------------------------- "
-                                              "                              Plugins Settings                           "
-                                              " ----------------------------------------------------------------------- "
+                          " ----------------------------------------------------------------------- "
+                          "                              Plugins Settings                           "
+                          " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
@@ -301,8 +351,8 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline_section_b = airline#section#create_left(['file'])
 let g:airline_section_c = ''
 let g:airline_section_x = ''
-let g:airline_section_y = airline#section#create_left(['filetype']) 
-let g:airline_section_z = airline#section#create(['branch'])
+let g:airline_section_y = airline#section#create(['filetype'])
+let g:airline_section_z = airline#section#create_right([' %l:%c']) 
 let g:airline_theme='ubaryd'
 let g:airline_mode_map = {
        \ '__' : '-',
@@ -312,7 +362,7 @@ let g:airline_mode_map = {
        \ 'c'  : 'C',
        \ 'v'  : 'V',
        \ 'V'  : 'V',
-       \ '^V' : 'V',
+       \ '' : 'V',
        \ 's'  : 'S',
        \ 'S'  : 'S',
        \ '^S' : 'S',
@@ -324,7 +374,7 @@ let g:airline_mode_map = {
 " ------------------------------------ "    
 "           NERDTree setting           "
 " ------------------------------------ "
-nnoremap nt :NERDTreeToggle <cr>
+nnoremap et :NERDTreeToggle <cr>
 let g:NERDTreeWinSize=30
 let g:NERDTreeShowHidden=1
 let NERDTreeDirArrows=0
@@ -373,13 +423,6 @@ let g:tagbar_type_css = {
 " ------------------------------------------ "
 let g:user_emmet_leader_key=','
 " }}}
-" GTFO {{{
-
-" -------------------------------------------------------- "
-"   Setting for GTFO aka Go to Terminal or File manager    "
-" -------------------------------------------------------- "
-let g:gtfo#terminals = { 'mac' : 'iterm' }
-" }}}
 " Syntastic {{{
 
 " ---------------------------------------------- "
@@ -389,49 +432,19 @@ nnoremap <leader>e :Errors<cr>
 nnoremap <leader>ec :lcl<cr>
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_enable_signs=1
-let g:syntastic_loc_list_height=3
+let g:syntastic_enable_signs= 1
+let g:syntastic_loc_list_height = 5
 let g:syntastic_check_on_wq = 1
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '!'
+let g:syntastic_error_symbol = '⚫'
+let g:syntastic_warning_symbol = '⚫'
 let g:syntastic_javascript_checkers=['jshint']
 let g:syntastic_mode_map = { 'mode': 'active',
     \ 'active_filetypes': [],
     \ 'passive_filetypes': ['html'] }
-" }}}
-" Javascript {{{
-function! FoldText()
-  let line = ' ' . substitute(getline(v:foldstart), '{.*', '{...}', ' ') . ' '
-  let lines_count = v:foldend - v:foldstart + 1
-  let lines_count_text = '(' . ( lines_count ) . ')'
-  let foldchar = matchstr(&fillchars, 'fold:\')
-  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-  let foldtextend = lines_count_text . repeat(' ', 6 )
-  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-  return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend . ' '
-endfunction
-augroup jsfolding
-  autocmd!
-  autocmd FileType javascript setlocal foldenable|setlocal foldmethod=syntax |setlocal foldtext=FoldText()
-augroup END
-" }}}
-" CSS {{{
-function! CSSFoldText()
-  let line = substitute(getline(v:foldstart), '{.*', '{...}', ' ') . ' '
-  let lines_count = v:foldend - v:foldstart + 1
-  let lines_count_text = '(' . ( lines_count ) . ')'
-  let foldchar = matchstr(&fillchars, 'fold:\')
-  let foldtextstart = strpart(line, 0, (winwidth(0)*2)/3)
-  let foldtextend = lines_count_text . repeat(' ', 6 )
-  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-  return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend . ' '
-endfunction
-augroup ft_css
-    au! 
-    au Filetype css setlocal foldmethod=marker
-    au Filetype css setlocal foldmarker={,}
-    au FileType css setlocal foldtext=CSSFoldText()
-augroup END
+let g:syntastic_stl_format = '%E{✗ : %e} , %W{❗: %w}'
+highlight SyntasticErrorSign ctermfg=red ctermbg=NONE guifg=red guibg=NONE
+highlight SyntasticWarningSign ctermfg=208 ctermbg=NONE guifg=#FF8700 guibg=NONE  
+
 " }}}
 " Indent Line {{{
 let g:indentLine_color_term = 236
