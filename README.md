@@ -2,4 +2,4 @@
 
 My Vim Setup
 
-![vimrc](https://cloud.githubusercontent.com/assets/13816418/10941111/4dc872f2-8338-11e5-8017-5432b4619481.png)
+![example](https://cloud.githubusercontent.com/assets/13816418/10991216/f8e6acd8-8489-11e5-94e8-e0308e8ab8e0.png)
