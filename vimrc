@@ -345,14 +345,14 @@ highlight MatchTag ctermfg=208 guifg=#FF4500
 set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#show_tab_nr = 0
+let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#whitespace#enabled = 0
-let g:airline_section_b = airline#section#create_left(['file'])
+let g:airline_section_b = airline#section#create_left(['filetype'])
 let g:airline_section_c = ''
 let g:airline_section_x = ''
-let g:airline_section_y = airline#section#create(['filetype'])
-let g:airline_section_z = airline#section#create_right([' %l:%c']) 
+let g:airline_section_z = ''
+let g:airline_section_y = airline#section#create_right([' %l:%c']) 
 let g:airline_theme='ubaryd'
 let g:airline_mode_map = {
        \ '__' : '-',

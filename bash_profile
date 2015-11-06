@@ -28,12 +28,5 @@ export PS1=$TEXT"\u "$WHITE"in"$BLUE" \w"'$(
     else echo "'$GREEN'"$(__git_ps1 " (%s)")
     fi)'$ORANGE" $ARROW$RESET "
 
-alias g='git'
-alias gs='git status'
-alias ga='git add'
-alias gcom='git commit -m'
-alias gp='git push origin master'
 __git_complete g __git_main
 
-alias python=python3
-alias studio=/opt/android-studio/bin/studio.sh
