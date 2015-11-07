@@ -62,9 +62,9 @@ call plug#end()
 
 " }}}
 
-                          " ----------------------------------------------------------------------- "
-                          "                               Vim Settings                              "
-                          " ----------------------------------------------------------------------- "
+                                             " ----------------------------------------------------------------------- "
+                                             "                               Vim Settings                              "
+                                             " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
 
@@ -242,8 +242,8 @@ hi VertSplit ctermfg=black ctermbg=NONE
 hi SignColumn ctermbg=NONE
 
 " warning if anything goes over 81 columns
-"highlight ColorColumn ctermbg=red 
-"call matchadd('ColorColumn', '\%81v', 100)
+highlight ColorColumn ctermbg=red 
+call matchadd('ColorColumn', '\%81v', 100)
 
 " highlight searches
 set hlsearch
@@ -302,9 +302,9 @@ autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('
 
 " }}}
 				 
-                          " ----------------------------------------------------------------------- "
-                          "                              Plugins Settings                           "
-                          " ----------------------------------------------------------------------- "
+                                             " ----------------------------------------------------------------------- "
+                                             "                              Plugins Settings                           "
+                                             " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
