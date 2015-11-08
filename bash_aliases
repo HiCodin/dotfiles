@@ -11,6 +11,8 @@ alias l='ls -CF'
 
 # tmux alias
 alias tmus='tmux new -s'
+alias tl='tmux ls'
+alias ta='tmux attach -t'
 
 # git alias
 alias g='git'

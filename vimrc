@@ -300,6 +300,10 @@ omap s :normal vs<CR>
 autocmd BufEnter * sign define dummy
 autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
 
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
 " }}}
 				 
                                              " ----------------------------------------------------------------------- "
@@ -346,6 +350,7 @@ set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tab_nr = 0
+let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline_section_b = airline#section#create_left(['filetype'])
@@ -383,7 +388,6 @@ let g:NERDTreeChDirMode=2
 let g:NERDTreeHijackNetrw=1
 let NERDTreeQuitOnOpen=1
 nnoremap <leader>f :NERDTreeFind<cr>
-
 " }}} 
 " Ctrl-P {{{
 
