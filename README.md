@@ -2,4 +2,4 @@
 
 My Vim Setup
 
-![Imgur](http://i.imgur.com/pZ4d6XB.gif)
+![Imgur](http://i.imgur.com/tgxraWk.gif)
