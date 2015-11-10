@@ -76,7 +76,7 @@ if has('gui_running')
     colorscheme sexy-railscasts
 else 
     set background=dark
-    colorscheme base16-railscasts
+    colorscheme base16-eighties
 endif
 
 " -------------------------------- "
@@ -276,7 +276,7 @@ hi LineNr ctermbg=NONE ctermfg=yellow
 hi clear CursorLine
 
 " turn off highlight until next search 
-nnoremap <silent> <esc> :noh<cr><esc>
+nnoremap <silent> <esc><esc>  :noh<cr><esc>
 
 " hide unused buffers
 set hidden
@@ -381,12 +381,15 @@ let g:airline_mode_map = {
 " ------------------------------------ "
 nnoremap et :NERDTreeToggle <cr>
 let g:NERDTreeWinSize=30
+let g:NERDTreeWinPos='right'
 let g:NERDTreeShowHidden=1
-let NERDTreeDirArrows=0
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeChDirMode=2
 let g:NERDTreeHijackNetrw=1
-let NERDTreeQuitOnOpen=1
+let g:NERDTreeQuitOnOpen=1
 nnoremap <leader>f :NERDTreeFind<cr>
 " }}} 
 " Ctrl-P {{{
