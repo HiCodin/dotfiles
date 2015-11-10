@@ -23,10 +23,10 @@ function pc {
 }
 export PS1=$TEXT"╭─● ●─────┤"$RESET" ( \u ) "$TEXT" ├─────●"$BLUE" ( \w ) "'$(
     if [[ $(__git_ps1) =~ \*\)$ ]]
-    then echo "'$RED'" $(pc)
+    then echo "'$RED'" $(__git_ps1)
     elif [[ $(__git_ps1) =~ \+\)$ ]]
-    then echo "'$ORANGE'" $(pc) 
-    else echo "'$GREEN'" $(pc) 
+    then echo "'$ORANGE'" $(__git_ps1) 
+    else echo "'$GREEN'" $(__git_ps1) 
     fi)'$TEXT"  \n╰─>$RESET "
 
 __git_complete g __git_main
