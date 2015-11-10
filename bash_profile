@@ -12,21 +12,21 @@ GREEN="\[\e[38;5;46m\]"
 RED="\[\e[38;5;196m\]"
 ARROW="\342\236\234"
 USER="\342\231\232"
-DOT="⚫"
+DOT="●"
 GIT_PS1_SHOWDIRTYSTATE=true
 export LS_OPTIONS='--color=auto'
 export CLICOLOR='Yes'
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
 function pc {
-  [ -d .git ] && git name-rev --name-only @
+  [ -d .git ] && git name-rev --name-only @ && echo "●"
 }
 export PS1=$TEXT"╭─● ●─────┤"$RESET" ( \u ) "$TEXT" ├─────●"$BLUE" ( \w ) "'$(
     if [[ $(__git_ps1) =~ \*\)$ ]]
-    then echo "'$RED'"$(pc) $DOT
+    then echo "'$RED'" $(pc)
     elif [[ $(__git_ps1) =~ \+\)$ ]]
-    then echo "'$ORANGE'"$(pc) $DOT
-    else echo "'$GREEN'"$(pc) $DOT
+    then echo "'$ORANGE'" $(pc) 
+    else echo "'$GREEN'" $(pc) 
     fi)'$TEXT"  \n╰─>$RESET "
 
 __git_complete g __git_main
