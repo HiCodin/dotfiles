@@ -21,12 +21,12 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 function pc {
   [ -d .git ] && git name-rev --name-only @ && echo "●"
 }
-export PS1=$TEXT"╭─● ●─────┤"$RESET" ( \u ) "$TEXT" ├─────●"$BLUE" ( \w ) "'$(
+export PS1=$TEXT"╭─● ●─────┤"$GREEN" ( \u ) "$TEXT" ├─────● ●─────┤"$BLUE" ( \w )"$TEXT" ├─────● "'$(
     if [[ $(__git_ps1) =~ \*\)$ ]]
-    then echo "'$RED'" $(__git_ps1)
+    then echo "'$RED'" $(__git_ps1 "| %s|")
     elif [[ $(__git_ps1) =~ \+\)$ ]]
-    then echo "'$ORANGE'" $(__git_ps1) 
-    else echo "'$GREEN'" $(__git_ps1) 
+    then echo "'$ORANGE'" $(__git_ps1 "| %s|") 
+    else echo "'$GREEN'" $(__git_ps1 "| %s|") 
     fi)'$TEXT"  \n╰─>$RESET "
 
 __git_complete g __git_main
