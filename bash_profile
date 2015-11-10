@@ -12,21 +12,22 @@ GREEN="\[\e[38;5;46m\]"
 RED="\[\e[38;5;196m\]"
 ARROW="\342\236\234"
 USER="\342\231\232"
+DOT="⚫"
 GIT_PS1_SHOWDIRTYSTATE=true
 export LS_OPTIONS='--color=auto'
 export CLICOLOR='Yes'
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
-export PS1=$TEXT"\u "$WHITE"in"$BLUE" \w"'$(
+function pc {
+  [ -d .git ] && git name-rev --name-only @
+}
+export PS1=$TEXT"╭─● ●─────┤"$RESET" ( \u ) "$TEXT" ├─────●"$BLUE" ( \w ) "'$(
     if [[ $(__git_ps1) =~ \*\)$ ]]
-    # a file has been modified but not added
-    then echo "'$RED'"$(__git_ps1 " (%s)")
+    then echo "'$RED'"$(pc) $DOT
     elif [[ $(__git_ps1) =~ \+\)$ ]]
-    # a file has been added, but not commited
-    then echo "'$ORANGE'"$(__git_ps1 " (%s)")
-    # the state is clean, changes are commited
-    else echo "'$GREEN'"$(__git_ps1 " (%s)")
-    fi)'$ORANGE" $ARROW$RESET "
+    then echo "'$ORANGE'"$(pc) $DOT
+    else echo "'$GREEN'"$(pc) $DOT
+    fi)'$TEXT"  \n╰─>$RESET "
 
 __git_complete g __git_main
 
