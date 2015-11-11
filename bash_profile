@@ -8,7 +8,8 @@ WHITE="\[\e[38;5;15m\]"
 RESET="\[\e[0m\]"
 BLUE="\[\e[38;5;75m\]"
 TEXT="\[\e[38;5;212m\]"
-GREEN="\[\e[38;5;48m\]"
+USERNAME="\[\e[38;5;48m\]"
+GREEN="\[\e[38;5;46m\]"
 RED="\[\e[38;5;196m\]"
 ARROW="\342\236\234"
 USER="\342\231\232"
@@ -22,7 +23,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
   #[ -d .git ] && git name-rev --name-only @ && echo "●"
 #}
 
-export PS1=$TEXT"╭─● ●─────┤"$GREEN" ( \u )"$TEXT" ├─────● ●─────┤"$BLUE" ( \w )"$TEXT""'$(
+export PS1=$TEXT"╭─● ●─────┤"$USERNAME" ( \u )"$TEXT" ├─────● ●─────┤"$BLUE" ( \w )"$TEXT""'$(
     if [[ $(__git_ps1) =~ \*\)$ ]]
     then echo "'$RED'" $(__git_ps1 " (%s)")
     elif [[ $(__git_ps1) =~ \+\)$ ]]
