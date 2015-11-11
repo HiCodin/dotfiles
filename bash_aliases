@@ -25,3 +25,6 @@ alias gp='git push origin master'
 alias python=python3
 alias studio=/opt/android-studio/bin/studio.sh
 
+# change dir
+alias gg='cd'
+alias ..='cd ..'
