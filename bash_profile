@@ -29,7 +29,7 @@ export PS1=$TEXT"╭─● ●─────┤"$USERNAME" ( \u )"$TEXT" ├─
     elif [[ $(__git_ps1) =~ \+\)$ ]]
     then echo "'$ORANGE'" $(__git_ps1 " (%s)") 
     else echo "'$GREEN'" $(__git_ps1 " (%s)") 
-    fi)'$TEXT" ├─────●  \n╰─>$RESET "
+    fi)'$TEXT" ├─────●  \n╰─➤$RESET "
 
 __git_complete g __git_main
 
