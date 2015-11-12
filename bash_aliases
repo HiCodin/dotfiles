@@ -1,7 +1,7 @@
 # dotfiles
-alias vrc='vim ~/dotfiles/vimrc'
-alias tcf='vim ~/dotfiles/tmux.conf'
-alias brc='vim ~/.bashrc'
+alias ev='vim ~/dotfiles/vimrc'
+alias tm='vim ~/dotfiles/tmux.conf'
+alias bp='vim ~/.bash_profile'
 alias shortcuts='vim ~/.bash_aliases'
 
 # git alias
@@ -26,5 +26,4 @@ alias python=python3
 alias studio=/opt/android-studio/bin/studio.sh
 
 # change dir
-alias gg='cd'
 alias ..='cd ..'

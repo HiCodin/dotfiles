@@ -239,7 +239,7 @@ set fillchars=vert:\│
 hi VertSplit ctermfg=black ctermbg=NONE
 
 " change SignColumn color
-hi SignColumn ctermbg=NONE
+hi SignColumn ctermbg=NONE 
 
 " warning if anything goes over 81 columns
 highlight ColorColumn ctermbg=red 
@@ -282,6 +282,8 @@ nnoremap <silent> <esc><esc>  :noh<cr><esc>
 set hidden
 
 " display buffer list and invoke buffer command 
+nnoremap <Leader>p :bprev<cr>
+nnoremap <Leader>n :bnext<cr>
 nnoremap ,b :ls<CR>:b
 
 " move cursor by display lines in wrapped text
@@ -300,6 +302,7 @@ omap s :normal vs<CR>
 autocmd BufEnter * sign define dummy
 autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
 
+" disable 'beep' sound in vim when pressing ESC
 set noerrorbells visualbell t_vb=
 if has('autocmd')
   autocmd GUIEnter * set visualbell t_vb=
@@ -397,7 +400,7 @@ nnoremap <leader>f :NERDTreeFind<cr>
 " ------------------------------------ "
 "            Ctrl-P settings           "
 " ------------------------------------ "
-let g:ctrlp_map = '<leader>p'
+let g:ctrlp_map = '<leader>l'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 0
 
@@ -449,12 +452,12 @@ let g:syntastic_mode_map = { 'mode': 'active',
     \ 'active_filetypes': [],
     \ 'passive_filetypes': ['html'] }
 let g:syntastic_stl_format = '%E{✗ : %e}%B{, }%W{❗: %w}'
-highlight SyntasticErrorSign ctermfg=red ctermbg=NONE guifg=red guibg=NONE
+highlight SyntasticErrorSign ctermfg=196 ctermbg=NONE guifg=red guibg=NONE
 highlight SyntasticWarningSign ctermfg=208 ctermbg=NONE guifg=#FF8700 guibg=NONE  
 
 " }}}
 " Indent Line {{{
-let g:indentLine_color_term = 236
+let g:indentLine_color_term = 235
 let g:indentLine_color_gui = "#333333"
 let g:indentLine_char ='' 
 let g:indentLine_fileTypeExclude = ['vim']
