@@ -33,7 +33,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 "}}}
 " CtrlP {{{
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " }}}
 " Emmet {{{
 Plug 'mattn/emmet-vim'
@@ -57,14 +57,17 @@ Plug 'othree/javascript-libraries-syntax.vim'
 " Indent Line {{{
 Plug 'Yggdroot/indentLine'
 "}}}
+" Dev Icons {{{
+Plug 'ryanoasis/vim-devicons'
+"}}}
 
 call plug#end()
 
 " }}}
 
-                                             " ----------------------------------------------------------------------- "
-                                             "                               Vim Settings                              "
-                                             " ----------------------------------------------------------------------- "
+                                              " ----------------------------------------------------------------------- "
+                                              "                               Vim Settings                              "
+                                              " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
 
@@ -309,9 +312,9 @@ if has('autocmd')
 endif
 " }}}
 				 
-                                             " ----------------------------------------------------------------------- "
-                                             "                              Plugins Settings                           "
-                                             " ----------------------------------------------------------------------- "
+                                              " ----------------------------------------------------------------------- "
+                                              "                              Plugins Settings                           "
+                                              " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
@@ -356,11 +359,12 @@ let g:airline#extensions#tabline#show_tab_nr = 0
 let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#whitespace#enabled = 0
-let g:airline_section_b = airline#section#create_left(['filetype'])
+let g:airline#extensions#wordcount#enabled = 0
+let g:airline_section_b = ''
 let g:airline_section_c = ''
 let g:airline_section_x = ''
+let g:airline_section_y = airline#section#create_right([' %l:%c'])
 let g:airline_section_z = ''
-let g:airline_section_y = airline#section#create_right([' %l:%c']) 
 let g:airline_theme='ubaryd'
 let g:airline_mode_map = {
        \ '__' : '-',
@@ -384,16 +388,38 @@ let g:airline_mode_map = {
 " ------------------------------------ "
 nnoremap et :NERDTreeToggle <cr>
 let g:NERDTreeWinSize=30
-let g:NERDTreeWinPos='right'
 let g:NERDTreeShowHidden=1
-let g:NERDTreeDirArrows = 1
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeDirArrows=1
+let g:NERDTreeDirArrowExpandable=''
+let g:NERDTreeDirArrowCollapsible=''
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeChDirMode=2
 let g:NERDTreeHijackNetrw=1
 let g:NERDTreeQuitOnOpen=1
 nnoremap <leader>f :NERDTreeFind<cr>
+" Highlight Files in NERDTree {{{
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+au VimEnter * call NERDTreeHighlightFile('jade', 'green', 'none', 'green', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('styl', '219', 'none', 'cyan', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('css', '219', 'none', 'cyan', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('coffee', '130', 'none', 'red', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('js', '208', 'none', '#ffa500', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('rb', '196', 'none', '#ffa500', 'NONE')
+au VimEnter * call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', 'NONE')
+
+" }}}
+
 " }}} 
 " Ctrl-P {{{
 
@@ -404,6 +430,15 @@ let g:ctrlp_map = '<leader>l'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 0
 
+let g:ctrlp_buffer_func = { 'enter': 'BrightHighlightOn', 'exit':  'BrightHighlightOff', }
+function! BrightHighlightOn()
+    hi CursorLine ctermbg=NONE ctermfg=red guifg=NONE guibg=NONE
+endfunction
+
+function! BrightHighlightOff()
+    hi CursorLine ctermbg=NONE ctermfg=red guifg=NONE guibg=NONE
+endfunction
+hi CtrlPNoEntries ctermfg=white ctermbg=black
 " }}}
 " Tagbar {{{
 
@@ -461,4 +496,10 @@ let g:indentLine_color_term = 235
 let g:indentLine_color_gui = "#333333"
 let g:indentLine_char ='' 
 let g:indentLine_fileTypeExclude = ['vim']
+" }}}
+" Dev Icons {{{
+let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:webdevicons_enable_airline_tabline = 0
 " }}}
