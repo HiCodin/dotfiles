@@ -269,6 +269,10 @@ function! HLNext (blinktime)
   redraw
 endfunction
 
+" map dd to blackhole register
+nnoremap d "_d
+vnoremap d "_d
+
 " change visual mode color
 hi Visual ctermbg=white ctermfg=black
 
