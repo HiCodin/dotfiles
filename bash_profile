@@ -36,10 +36,9 @@ prompt_git() {
 
 			# Ensure the index is up to date.
 
-            #if $(git update-index --really-refresh -q &>/dev/null); then
-                #s+='✔';
-            #fi;
-            git update-index --really-refresh -q &>/dev/null
+            if ! $(git update-index --really-refresh -q &>/dev/null); then
+                s+='✔';
+            fi;
 
 			# Check for uncommitted changes in the index.
 			if ! $(git diff --quiet --ignore-submodules --cached); then
