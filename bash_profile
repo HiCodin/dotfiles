@@ -36,31 +36,28 @@ prompt_git() {
 
             # Ensure the index is up to date.
 
-            if ! $(git update-index --really-refresh -q &>/dev/null); then
+            git update-index --really-refresh -q &>/dev/null
 
-                # Check for uncommitted changes in the index.
-                if ! $(git diff --quiet --ignore-submodules --cached); then
-                    s+='+';
-                fi;
-
-                # Check for unstaged changes.
-                if ! $(git diff-files --quiet --ignore-submodules --); then
-                    s+='!';
-                fi;
-
-                # Check for untracked files.
-                if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-                    s+='?';
-                fi;
-
-                # Check for stashed files.
-                if $(git rev-parse --verify refs/stash &>/dev/null); then
-                    s+='$';
-                fi;
-            
-            else 
-                s+='✓';
+            # Check for uncommitted changes in the index.
+            if ! $(git diff --quiet --ignore-submodules --cached); then
+                s+='+';
             fi;
+
+            # Check for unstaged changes.
+            if ! $(git diff-files --quiet --ignore-submodules --); then
+                s+='!';
+            fi;
+
+            # Check for untracked files.
+            if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+                s+='?';
+            fi;
+
+            # Check for stashed files.
+            if $(git rev-parse --verify refs/stash &>/dev/null); then
+                s+='$';
+            fi;
+
         fi;
 
         # Get the short symbolic ref.
