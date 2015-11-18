@@ -36,8 +36,8 @@ prompt_git() {
 
             # Ensure the index is up to date.
 
-            if ! $(git update-index --really-refresh -q); then
-                s+='....';
+            if  $(git status 2> /dev/null =~ 'working directory clean'); then
+                s+='✔';
             fi;
 
             # Check for uncommitted changes in the index.
