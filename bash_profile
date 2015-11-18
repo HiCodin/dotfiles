@@ -35,7 +35,10 @@ prompt_git() {
 		if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
 
 			# Ensure the index is up to date.
-			git update-index --really-refresh -q &>/dev/null;
+
+            if $(git update-index --really-refresh -q &>/dev/null); then
+                s+='✔';
+            fi;
 
 			# Check for uncommitted changes in the index.
 			if ! $(git diff --quiet --ignore-submodules --cached); then
@@ -76,7 +79,7 @@ prompt_git() {
 
 PS1=$USER"\u "$WHITE"in"$BLUE" \w"
 PS1+="\$(prompt_git \"\[${WHITE}\] on \[${VIOLET}\]\" \"\[${BLUE}\]\")"; # Git repository details
-PS1+="\n$PINK● \[${WHITE}\]";
+PS1+="\n\[${WHITE}\]► \[${WHITE}\]";
 export PS1;
 
 __git_complete g __git_main
