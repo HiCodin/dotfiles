@@ -36,7 +36,7 @@ prompt_git() {
 
             # Ensure the index is up to date.
 
-            if $(git update-index --really-refresh -q); then
+            if ! $(git update-index --really-refresh -q); then
                 s+='....';
             fi;
 
