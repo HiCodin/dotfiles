@@ -2,6 +2,7 @@
 alias ev='vim ~/dotfiles/vimrc'
 alias tm='vim ~/dotfiles/tmux.conf'
 alias bp='vim ~/.bash_profile'
+alias brc='vim ~/.bashrc'
 alias shortcuts='vim ~/.bash_aliases'
 
 # git alias

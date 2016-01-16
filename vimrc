@@ -60,6 +60,9 @@ Plug 'Yggdroot/indentLine'
 " Dev Icons {{{
 Plug 'ryanoasis/vim-devicons'
 "}}}
+" Fancy start screen for Vim {{{
+Plug 'mhinz/vim-startify'
+" }}}
 
 call plug#end()
 
@@ -75,12 +78,8 @@ call plug#end()
 "          colorscheme             "
 " -------------------------------- "
 
-if has('gui_running')
-    colorscheme sexy-railscasts
-else 
-    set background=dark
-    colorscheme base16-eighties
-endif
+set background=dark
+"colorscheme base16-eighties
 
 " -------------------------------- "
 "            GUI Config            "
