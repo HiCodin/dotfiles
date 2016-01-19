@@ -191,14 +191,6 @@ augroup reload_vimrc
     autocmd BufWritePost .vimrc source % 
 augroup END
 
-" ------------------------------------------------ "
-" setting for cursor in command mode / insert mode "
-" ------------------------------------------------ "
-
-set guicursor+=n:hor10-Cursor/lCursor 
-set guicursor+=i:hor10-Cursor/lCursor 
-set guicursor+=a:blinkon0
-
 " --------------------------------- "
 "                Misc               "
 " --------------------------------- "
@@ -504,5 +496,3 @@ let g:indentLine_fileTypeExclude = ['vim']
 let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 let g:webdevicons_conceal_nerdtree_brackets = 1
-let g:webdevicons_enable_airline_tabline = 0
-" }}}
