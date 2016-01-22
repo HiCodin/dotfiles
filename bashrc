@@ -106,19 +106,10 @@ prompt_git() {
     fi;
 }
 
-#PS1=$USER"\u "$WHITE"in\[${BLUE}\] \w"
-#PS1+="\$(prompt_git \"\[${WHITE}\] on \[${VIOLET}\]\" \"\[${BLUE}\]\")"; # Git repository details
-#PS1+="\n\[${WHITE}\]► $RESET";
-#export PS1;
-
-
-function _update_ps1() {
-PS1="$(~/powerline-shell.py $? 2> /dev/null)"
-}
-
-if [ "$TERM" != "linux" ]; then
-    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
+PS1=$USER"\u "$WHITE"in\[${BLUE}\] \w"
+PS1+="\$(prompt_git \"\[${WHITE}\] on \[${VIOLET}\]\" \"\[${BLUE}\]\")"; # Git repository details
+PS1+="\n\[${WHITE}\]► $RESET";
+export PS1;
 
 __git_complete g __git_main
 
@@ -130,3 +121,5 @@ export EDITOR='vim'
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+
+setxkbmap -option caps:ctrl_modifier
