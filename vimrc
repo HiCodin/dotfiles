@@ -57,9 +57,6 @@ Plug 'othree/javascript-libraries-syntax.vim'
 " Indent Line {{{
 Plug 'Yggdroot/indentLine'
 "}}}
-" Dev Icons {{{
-Plug 'ryanoasis/vim-devicons'
-"}}}
 " Fancy start screen for Vim {{{
 Plug 'mhinz/vim-startify'
 " }}}
@@ -355,6 +352,10 @@ let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#wordcount#enabled = 0
+let g:airline_right_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_left_alt_sep= ''
+let g:airline_left_sep = ''
 let g:airline_section_b = ''
 let g:airline_section_c = ''
 let g:airline_section_x = ''
@@ -491,8 +492,4 @@ let g:indentLine_color_term = 235
 let g:indentLine_color_gui = "#333333"
 let g:indentLine_char ='' 
 let g:indentLine_fileTypeExclude = ['vim']
-" }}}
-" Dev Icons {{{
-let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-let g:webdevicons_conceal_nerdtree_brackets = 1
+" }}
