@@ -60,6 +60,9 @@ Plug 'Yggdroot/indentLine'
 " Fancy start screen for Vim {{{
 Plug 'mhinz/vim-startify'
 " }}}
+" i3 Syntax {{{
+Plug 'PotatoesMaster/i3-vim-syntax'
+" }}}
 
 call plug#end()
 
@@ -490,6 +493,6 @@ highlight SyntasticWarningSign ctermfg=208 ctermbg=NONE guifg=#FF8700 guibg=NONE
 " Indent Line {{{
 let g:indentLine_color_term = 235
 let g:indentLine_color_gui = "#333333"
-let g:indentLine_char ='' 
+let g:indentLine_char ='│' 
 let g:indentLine_fileTypeExclude = ['vim']
 " }}

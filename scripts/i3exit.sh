@@ -1,6 +1,6 @@
 #!/bin/sh
 lock() {
-    ~/.bin/scripts/lock.sh
+    ~/dotfiles/scripts/lock.sh
 }
 
 case "$1" in
@@ -11,19 +11,19 @@ case "$1" in
         i3-msg exit
         ;;
     suspend)
-        lock && dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Suspend" boolean:true
+        lock && systemctl suspend
         ;;
     hibernate)
-        lock && dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Hibernate" boolean:true
+        lock && systemctl hibernate
         ;;
     reboot)
-        dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.Reboot" boolean:true
+        systemctl reboot
         ;;
-    shutdown)
-        dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.PowerOff" boolean:true
+    poweroff)
+        systemctl poweroff
         ;;
     *)
-        echo "Usage: $0 {lock|logout|suspend|hibernate|reboot|shutdown}"
+        echo "Usage: $0 {lock|logout|suspend|hibernate|reboot|poweroff}"
         exit 2
 esac
 

@@ -44,6 +44,7 @@ if ($acpi !~ /: (\w+), (\d+)%/) {
 $status = $1;
 $percent = $2;
 $full_text = "$percent%";
+$battery ="";
 $battery_full = " ";
 $battery_one_third = " ";
 $battery_half = " ";
@@ -51,39 +52,47 @@ $battery_low = " ";
 $battery_empty = " ";
 $battery_charge = " ";
 
+if ($status eq 'Full') {
 
-if ($status eq 'Discharging') {
-
-    if ($percent < 10) {
-        $battery = $battery_empty . $full_text;
-        #$full_text .= '  ';
-    } elsif ($percent < 25) {
-        $battery = $battery_low . $full_text;
-        #$full_text .= '  ';
-    } elsif ($percent < 50) {
-        $battery = $battery_half . $full_text;
-        #$full_text .= '  ';
-    } elsif ($percent < 75) {
-        $battery = $battery_one_third . $full_text ;
-        #$full_text .= ' ';
-    } elsif ($percent < 100) {
         $battery = $battery_full . $full_text;
-        #$full_text .= '  ';
-    }
-
-} elsif ($status eq 'Charging') {
-
-    if($percent > 0 && $percent < 90) {
-        $battery = $battery_charge . $full_text;
-        #$full_text .= '  ';
-    }
-    else{
-        $battery = $battery_full . $full_text;
-        #$full_text .= '  ';
-    }
 }
 
-$short_text = $full_text;
+else {
+
+
+    if ($status eq 'Discharging') {
+
+        if ($percent < 10) {
+            $battery = $battery_empty . $full_text;
+            #$full_text .= '  ';
+        } elsif ($percent < 25) {
+            $battery = $battery_low . $full_text;
+            #$full_text .= '  ';
+        } elsif ($percent < 50) {
+            $battery = $battery_half . $full_text;
+            #$full_text .= '  ';
+        } elsif ($percent < 75) {
+            $battery = $battery_one_third . $full_text ;
+            #$full_text .= ' ';
+        } elsif ($percent < 100) {
+            $battery = $battery_full . $full_text;
+            #$full_text .= '  ';
+        }
+
+    } 
+    elsif ($status eq 'Charging') {
+
+        if($percent > 0 && $percent < 90 ) {
+            $battery = $battery_charge . $full_text;
+            #$full_text .= '  ';
+        }
+        else {
+            $battery = $battery_full . $full_text;
+            #$full_text .= '  ';
+        }
+    }
+
+}
 
 #if ($acpi =~ /(\d\d:\d\d):/) {
 #$full_text .= " ($1)";
@@ -115,15 +124,22 @@ if ($status eq 'Discharging') {
 
 if ($status eq 'Charging') {
 
-    if ($percent > 80) {
+    if ($percent > 80 ) {
         print "#A8FF00\n";
     } elsif ($percent > 60) {
-        print "#FFF600\n";
+        print "#BDFF00\n";
     } elsif ($percent > 40) {
+        print "#FFF600\n";
+    } elsif ($percent > 20){
         print "#FFAE00\n";
     } elsif ($percent > 0) {
         print "#FF0000\n";
     }
+}
+
+
+if ($status eq 'Full') {
+        print "#A8FF00\n";
 }
 
 exit(0);
