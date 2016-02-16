@@ -6,6 +6,8 @@ set $text-color             #FFFFFF
 set $inactive-text-color    #7a7a7a
 set $urgent-bg-color        #292929
 set $urgent-text-color      #ffff00
+set $highlight-focused      #ff8000
+set $focused-text           #000000
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -20,13 +22,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-# bindsym $mod+d exec rofi -show run -lines 5 -eh 2 -width 40 -bw 0 -bc "#000000" -bg "#FFFFFF"
-bindsym $mod+d exec rofi -show run -eh 2 -bw 0 -lines 5 
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# rofi launcher
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop -dmenu='rofi -dmenu -p "" -font "MonacoB 12" -lines 1 -bg black -fg white -hlfg white -hlbg black'
 
 # change focus
 bindsym $mod+h focus left
@@ -78,16 +75,16 @@ bindsym $mod+a focus parent
 focus_follows_mouse no
 
 # set workspace names
-set $workspace1 "1:◉"
-set $workspace2 "2:◉"
-set $workspace3 "3:◉"
-set $workspace4 "4:◉"
-set $workspace5 "5:◉"
-set $workspace6 "6:◉"
-set $workspace7 "7:◉"
-set $workspace8 "8:◉"
-set $workspace9 "9:◉"
-set $workspace10 "10:◉"
+set $workspace1 "1:●"
+set $workspace2 "2:●"
+set $workspace3 "3:●"
+set $workspace4 "4:●"
+set $workspace5 "5:●"
+set $workspace6 "6:●"
+set $workspace7 "7:●"
+set $workspace8 "8:●"
+set $workspace9 "9:●"
+set $workspace10 "10:●"
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -120,6 +117,7 @@ exec google-chrome
 assign [class="Gnome-terminal"] $workspace1
 assign [class="google-chrome"] $workspace2
 assign [class="Emacs"] $workspace3
+assign [class="vlc"] $workspace5
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -152,10 +150,10 @@ exec xautolock -time 5 -locker "~/dotfiles/scripts/lock.sh"
 bindsym $mod+r mode "  "
 
 mode "  " {
-        bindsym h resize grow width 10 px or 10 ppt
-        bindsym j resize shrink height 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         #back to normal: Enter or Escape
         bindsym Escape mode "default"
@@ -169,20 +167,32 @@ for_window [class="google-chrome" window_role="pop-up"] floating enable, border 
 
 
 # set colors for opened applications
-client.focused              $bg-color           $bg-color           $text-color             $bg-color
+client.focused              $bg-color           $highlight-focused  $focused-text           $bg-color
 client.unfocused            $inactive-bg-color  $inactive-bg-color  $inactive-text-color    $bg-color
 client.focused_inactive     $inactivebg-color   $inactive-bg-color  $inactive-text-color    $bg-color
 client.urgent               $bg-color           $bg-color           $text-color             $bg-color
 
 
+# class                 border  backgr. text    indicator
+#client.focused          #4c7899 #285577 #ffffff #2e9ef4
+#client.focused_inactive #333333 #5f676a #ffffff #484e50
+#client.unfocused        #333333 #222222 #888888 #292d2e
+#client.urgent           #2f343a #900000 #ffffff #900000
+#client.placeholder      #000000 #0c0c0c #ffffff #000000
+
+#client.background       #ffffff
+
+
 hide_edge_borders both
-new_window none
+new_window pixel 3
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
         position top
         status_command i3blocks -c ~/dotfiles/.i3/i3blocks.conf
+        strip_workspace_numbers yes
+
         colors {
             background $bg-color
             separator #757575
@@ -191,7 +201,6 @@ bar {
             inactive_workspace      $inactive-bg-color  $inactive-bg-color  $inactive-text-color
             urgent_workspace        $urgent-bg-color    $urgent-bg-color    $urgent-text-color
         }
-        strip_workspace_numbers yes
 }
 
 # Pulse Audio controls
@@ -200,4 +209,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #d
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
 
 # set wallpaper
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/deadpool.jpg
+
+# i3-gaps specific
+gaps inner 5
+gaps outer 2
+smart_gaps on
