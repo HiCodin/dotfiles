@@ -24,7 +24,8 @@ Plug 'oguzbilgic/sexy-railscasts-theme'
 Plug 'chriskempson/base16-vim'
 " }}}
 " Vim Airline {{{
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " }}}
 " NERDTree {{{
 Plug 'scrooloose/nerdtree' 
@@ -63,27 +64,22 @@ Plug 'mhinz/vim-startify'
 " i3 Syntax {{{
 Plug 'PotatoesMaster/i3-vim-syntax'
 " }}}
-" {{{
-Plug 'godlygeek/csappro'
-" }}}
 
 call plug#end()
 
 " }}}
 
-                                         " ----------------------------------------------------------------------- "
-                                         "                               Vim Settings                              "
-                                         " ----------------------------------------------------------------------- "
+                                      " ----------------------------------------------------------------------- "
+                                      "                               Vim Settings                              "
+                                      " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
 
 " -------------------------------- "
 "          colorscheme             "
 " -------------------------------- "
-
 set background=dark
-"colorscheme base16-eighties
-
+colorscheme sexy-railscasts
 " -------------------------------- "
 "            GUI Config            "
 " -------------------------------- "
@@ -91,6 +87,7 @@ set guioptions-=m
 set guioptions-=T
 set guioptions-=L " no scrollbar on the left side
 set guioptions-=r " no scrollbar on the right side
+set t_Co=256
 
 " -------------------------------- "
 "        Case Sensitivity          "
@@ -309,10 +306,10 @@ if has('autocmd')
   autocmd GUIEnter * set visualbell t_vb=
 endif
 " }}}
-				 
-                                         " ----------------------------------------------------------------------- "
-                                         "                              Plugins Settings                           "
-                                         " ----------------------------------------------------------------------- "
+
+                                      " ----------------------------------------------------------------------- "
+                                      "                              Plugins Settings                           "
+                                      " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
@@ -358,10 +355,6 @@ let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#wordcount#enabled = 0
-let g:airline_right_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_left_alt_sep= ''
-let g:airline_left_sep = ''
 let g:airline_section_b = ''
 let g:airline_section_c = ''
 let g:airline_section_x = ''
