@@ -12,16 +12,16 @@ RED="\[\e[38;5;196m\]"
 # print the results
 if [ "$security_updates" -gt "1" ] && [ "$non_security_updates" -gt "1" ]
 then
-    echo " $security_updates  $non_security_updates"
+    echo "  $security_updates  $non_security_updates "
 
 elif [ "$security_updates" -gt "1" ] || [ "$security_updates" -eq "1" ]
 then
-    echo "  $security_updates"
+    echo "   $security_updates "
 
 elif [ "$non_security_updates" -gt "1" ] || [ "$non_security_updates" -eq "1" ]
 then
-    echo "  $non_security_updates"
+    echo "   $non_security_updates "
 
 else
-    echo "♥"
+    echo " ♥ "
 fi
