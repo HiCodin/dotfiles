@@ -64,14 +64,17 @@ Plug 'mhinz/vim-startify'
 " i3 Syntax {{{
 Plug 'PotatoesMaster/i3-vim-syntax'
 " }}}
+" FastFold {{{
+Plug 'konfekt/fastfold'
+" }}}
 
 call plug#end()
 
 " }}}
 
-                                      " ----------------------------------------------------------------------- "
-                                      "                               Vim Settings                              "
-                                      " ----------------------------------------------------------------------- "
+                                                                      " ----------------------------------------------------------------------- "
+                                                                      "                               Vim Settings                              "
+                                                                      " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
 
@@ -79,7 +82,6 @@ call plug#end()
 "          colorscheme             "
 " -------------------------------- "
 set background=dark
-colorscheme sexy-railscasts
 " -------------------------------- "
 "            GUI Config            "
 " -------------------------------- "
@@ -131,7 +133,7 @@ function! FoldText()
   let lines_count = v:foldend - v:foldstart + 1
   let lines_count_text = '(' . ( lines_count ) . ')'
   let foldchar = matchstr(&fillchars, 'fold:\')
-  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+  let foldtextstart = strpart('✦' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
   let foldtextend = lines_count_text . repeat(' ', 2 )
   let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
   return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend . ' '
@@ -147,7 +149,7 @@ function! CSSFoldText()
   let lines_count = v:foldend - v:foldstart + 1
   let lines_count_text = '(' . ( lines_count ) . ')'
   let foldchar = matchstr(&fillchars, 'fold:\')
-  let foldtextstart = strpart(line, 0, (winwidth(0)*2)/3)
+  let foldtextstart = strpart('✦ ' . line, 0, (winwidth(0)*2)/3)
   let foldtextend = lines_count_text . repeat(' ', 2 )
   let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
   return foldtextstart . repeat(' ', winwidth(0)-foldtextlength) . foldtextend . ' '
@@ -218,9 +220,6 @@ set showmatch
 
 " changing matching parenthesis colors
 highlight MatchParen ctermfg=white guifg=red guibg=NONE
-
-" font setting
-set guifont=Fira\ Mono\ Medium\ for\ Powerline\ 10
  
 " Allow backspacing over autoindent, line breaks and start of insert action
 set backspace=indent,eol,start
@@ -307,9 +306,9 @@ if has('autocmd')
 endif
 " }}}
 
-                                      " ----------------------------------------------------------------------- "
-                                      "                              Plugins Settings                           "
-                                      " ----------------------------------------------------------------------- "
+                                                                      " ----------------------------------------------------------------------- "
+                                                                      "                              Plugins Settings                           "
+                                                                      " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
@@ -326,8 +325,8 @@ inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
-hi Pmenu ctermbg=8
-hi PmenuSel ctermbg=1
+hi Pmenu ctermbg=8 ctermfg=15
+hi PmenuSel ctermbg=1 ctermfg=15
 hi PmenuSbar ctermbg=0
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
@@ -355,8 +354,6 @@ let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#wordcount#enabled = 0
-let g:airline_left_sep = '█▓░'
-let g:airline_right_sep = '░▓█'
 let g:airline_section_b = ''
 let g:airline_section_c = ''
 let g:airline_section_x = ''
@@ -480,17 +477,17 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_error_symbol = '●'
 let g:syntastic_warning_symbol = '●'
 let g:syntastic_javascript_checkers=['jshint']
+let g:syntastic_php_checkers=['php', 'phplint']
 let g:syntastic_mode_map = { 'mode': 'active',
     \ 'active_filetypes': [],
     \ 'passive_filetypes': ['html'] }
-let g:syntastic_stl_format = '%E{✗ : %e}%B{, }%W{❗: %w}'
-highlight SyntasticErrorSign ctermfg=196 ctermbg=NONE guifg=red guibg=NONE
-highlight SyntasticWarningSign ctermfg=208 ctermbg=NONE guifg=#FF8700 guibg=NONE  
+let g:syntastic_stl_format = '%E{✗ : %e}%B{, }%W{❗ : %w}'
+highlight SyntasticErrorSign ctermfg=196 ctermbg=NONE
+highlight SyntasticWarningSign ctermfg=210 ctermbg=NONE
 
 " }}}
 " Indent Line {{{
-let g:indentLine_color_term = 235
-let g:indentLine_color_gui = "#333333"
+let g:indentLine_color_term = 240
 let g:indentLine_char ='│' 
 let g:indentLine_fileTypeExclude = ['vim']
 " }}

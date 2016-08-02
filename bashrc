@@ -122,15 +122,15 @@ PS1+="\$(prompt_git \"\[${WHITE}\] on \[${VIOLET}\]\" \"\[${BLUE}\]\")"; # Git r
 PS1+="\n\[${WHITE}\]► $RESET";
 export PS1;
 
-__git_complete g __git_main
+#__git_complete g __git_main
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 export EDITOR='vim'
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
+#export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 
-setxkbmap -option caps:ctrl_modifier
+#setxkbmap -option caps:ctrl_modifier
