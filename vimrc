@@ -213,7 +213,7 @@ set shortmess-=m
 set shortmess+=cWIs
 
 " open vimrc in a new tab
-nmap <leader>ev :tabedit $MYVIMRC<CR>  
+nmap <leader>cv :tabedit $MYVIMRC<CR>  
 
 " Show Matching tags/parens/ ect
 set showmatch 
@@ -281,7 +281,7 @@ set hidden
 " display buffer list and invoke buffer command 
 nnoremap <Leader>p :bprev<cr>
 nnoremap <Leader>n :bnext<cr>
-nnoremap ,b :ls<CR>:b
+nnoremap <leader>b :ls<CR>:b
 
 " move cursor by display lines in wrapped text
 nnoremap j gj
@@ -384,8 +384,8 @@ nnoremap et :NERDTreeToggle <cr>
 let g:NERDTreeWinSize=30
 let g:NERDTreeShowHidden=1
 let g:NERDTreeDirArrows=1
-let g:NERDTreeDirArrowExpandable=''
-let g:NERDTreeDirArrowCollapsible=''
+"let g:NERDTreeDirArrowExpandable='+'
+"let g:NERDTreeDirArrowCollapsible='-'
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeChDirMode=2
 let g:NERDTreeHijackNetrw=1
