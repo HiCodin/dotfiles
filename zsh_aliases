@@ -1,0 +1,35 @@
+# dotfiles
+alias ev='vim ~/dotfiles/vimrc'
+alias tm='vim ~/dotfiles/tmux.conf'
+alias bp='vim ~/.bash_profile'
+alias brc='vim ~/.bashrc'
+alias zrc='vim ~/.zshrc'
+alias i3c='vim ~/.i3/config'
+alias xc='vim ~/.Xresources'
+alias shortcuts='vim ~/.zsh_aliases'
+
+# git alias
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# tmux alias
+alias tmus='tmux new -s'
+alias tl='tmux ls'
+alias ta='tmux attach -t'
+
+# git alias
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gcom='git commit -m'
+alias gp='git push origin master'
+
+# php lint
+alias phpl="~/phplint-3.0_20160307/phpl"
+
+# python 3
+alias python="/usr/local/bin/python3"
+
+# exit terminal
+alias x="exit"
