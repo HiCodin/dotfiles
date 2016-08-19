@@ -25,7 +25,6 @@ Plug 'chriskempson/base16-vim'
 " }}}
 " Vim Airline {{{
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 " }}}
 " NERDTree {{{
 Plug 'scrooloose/nerdtree' 
