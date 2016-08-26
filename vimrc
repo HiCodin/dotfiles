@@ -54,14 +54,14 @@ Plug 'scrooloose/syntastic'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 "}}}
+" PHP Completion {{{
+Plug 'shawncplus/phpcomplete.vim'
+"}}}
 " Indent Line {{{
 Plug 'Yggdroot/indentLine'
 "}}}
 " Fancy start screen for Vim {{{
 Plug 'mhinz/vim-startify'
-" }}}
-" i3 Syntax {{{
-Plug 'PotatoesMaster/i3-vim-syntax'
 " }}}
 " FastFold {{{
 Plug 'konfekt/fastfold'
@@ -71,9 +71,9 @@ call plug#end()
 
 " }}}
 
-                                                                      " ----------------------------------------------------------------------- "
-                                                                      "                               Vim Settings                              "
-                                                                      " ----------------------------------------------------------------------- "
+                                                         " ----------------------------------------------------------------------- "
+                                                         "                               Vim Settings                              "
+                                                         " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
 
@@ -305,9 +305,9 @@ if has('autocmd')
 endif
 " }}}
 
-                                                                      " ----------------------------------------------------------------------- "
-                                                                      "                              Plugins Settings                           "
-                                                                      " ----------------------------------------------------------------------- "
+                                                         " ----------------------------------------------------------------------- "
+                                                         "                              Plugins Settings                           "
+                                                         " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
@@ -319,6 +319,11 @@ let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_smart_case=1
 let g:neocomplete#sources#syntax#min_keyword_length=3
 let g:neocomplete#lock_buffer_name_pattern= '\*ku\*'
+if !exists('g:neocomplete#sources#omni#input_patterns')
+		  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.php =
+	\ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
@@ -476,13 +481,13 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_error_symbol = '●'
 let g:syntastic_warning_symbol = '●'
 let g:syntastic_javascript_checkers=['jshint']
-let g:syntastic_php_checkers=['php', 'phplint']
+let g:syntastic_php_checkers=['php']
 let g:syntastic_mode_map = { 'mode': 'active',
     \ 'active_filetypes': [],
     \ 'passive_filetypes': ['html'] }
-let g:syntastic_stl_format = '%E{✗ : %e}%B{, }%W{❗ : %w}'
+let g:syntastic_stl_format = '%E{✗ : %e}%B{, }%W{! : %w}'
 highlight SyntasticErrorSign ctermfg=196 ctermbg=NONE
-highlight SyntasticWarningSign ctermfg=210 ctermbg=NONE
+highlight SyntasticWarningSign ctermfg=166 ctermbg=NONE
 
 " }}}
 " Indent Line {{{
