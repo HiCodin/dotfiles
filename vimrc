@@ -25,6 +25,7 @@ Plug 'chriskempson/base16-vim'
 " }}}
 " Vim Airline {{{
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " }}}
 " NERDTree {{{
 Plug 'scrooloose/nerdtree' 
@@ -53,6 +54,7 @@ Plug 'scrooloose/syntastic'
 " JS & related libraries {{{
 Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'posva/vim-vue'
 "}}}
 " PHP Completion {{{
 Plug 'shawncplus/phpcomplete.vim'
@@ -71,9 +73,9 @@ call plug#end()
 
 " }}}
 
-                                                         " ----------------------------------------------------------------------- "
-                                                         "                               Vim Settings                              "
-                                                         " ----------------------------------------------------------------------- "
+                                                     " ----------------------------------------------------------------------- "
+                                                     "                               Vim Settings                              "
+                                                     " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
 
@@ -258,6 +260,19 @@ function! HLNext (blinktime)
   redraw
 endfunction
 
+" Use ranger as file explorer
+
+fun! RangerChooser()
+  exec "silent !ranger --choosefile=/tmp/chosenfile " . expand("%:p:h")
+  if filereadable('/tmp/chosenfile')
+    exec 'edit ' . system('cat /tmp/chosenfile')
+    call system('rm /tmp/chosenfile')
+  endif
+  redraw!
+endfun
+
+map <Leader>x :call RangerChooser()<CR>
+
 " map dd to blackhole register
 nnoremap d "_d
 vnoremap d "_d
@@ -305,9 +320,9 @@ if has('autocmd')
 endif
 " }}}
 
-                                                         " ----------------------------------------------------------------------- "
-                                                         "                              Plugins Settings                           "
-                                                         " ----------------------------------------------------------------------- "
+                                                     " ----------------------------------------------------------------------- "
+                                                     "                              Plugins Settings                           "
+                                                     " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
@@ -315,6 +330,7 @@ endif
 "              Settings for Neocomplete             "
 " ------------------------------------------------- "
 let g:acp_enableAtStartup = 0
+set completeopt-=preview
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_smart_case=1
 let g:neocomplete#sources#syntax#min_keyword_length=3
@@ -332,6 +348,9 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 hi Pmenu ctermbg=8 ctermfg=15
 hi PmenuSel ctermbg=1 ctermfg=15
 hi PmenuSbar ctermbg=0
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 " }}}
@@ -491,7 +510,7 @@ highlight SyntasticWarningSign ctermfg=166 ctermbg=NONE
 
 " }}}
 " Indent Line {{{
-let g:indentLine_color_term = 240
+let g:indentLine_color_term = 237
 let g:indentLine_char ='│' 
 let g:indentLine_fileTypeExclude = ['vim']
-" }}
+" }}}

@@ -7,6 +7,8 @@ alias zrc='vim ~/.zshrc'
 alias i3c='vim ~/.i3/config'
 alias xc='vim ~/.Xresources'
 alias shortcuts='vim ~/.zsh_aliases'
+alias soshi='source ~/.zsh_aliases'
+alias soz='source ~/.zshrc'
 
 # git alias
 alias ll='ls -alF'
@@ -26,10 +28,14 @@ alias gcom='git commit -m'
 alias gp='git push origin master'
 
 # php lint
-alias phpl="~/phplint-3.0_20160307/phpl"
+alias phpl='~/phplint-3.0_20160307/phpl'
 
 # python 3
-alias python="/usr/local/bin/python3"
+alias python='/usr/local/bin/python3'
+
+# Editor
+alias emacs='/usr/local/bin/emacs'
+alias vim='/usr/local/bin/vim'
 
 # exit terminal
-alias x="exit"
+alias x='exit'
