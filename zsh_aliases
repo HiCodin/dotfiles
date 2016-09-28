@@ -1,14 +1,11 @@
 # dotfiles
 alias ev='vim ~/dotfiles/vimrc'
 alias tm='vim ~/dotfiles/tmux.conf'
-alias bp='vim ~/.bash_profile'
-alias brc='vim ~/.bashrc'
-alias zrc='vim ~/.zshrc'
-alias i3c='vim ~/.i3/config'
-alias xc='vim ~/.Xresources'
-alias shortcuts='vim ~/.zsh_aliases'
+alias zrc='vim ~/dotfiles/zshrc'
+alias shortcuts='vim ~/dotfiles/zsh_aliases'
 alias soshi='source ~/.zsh_aliases'
 alias soz='source ~/.zshrc'
+alias rmdir='rm -rf'
 
 # git alias
 alias ll='ls -alF'

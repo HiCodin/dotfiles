@@ -31,7 +31,11 @@ if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
   source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 fi
 
-
 eval "$(thefuck --alias)"
 
 source ~/.zsh_aliases
+
+function take() {
+    mkdir -p $1
+    cd $1
+}

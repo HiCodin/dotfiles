@@ -191,7 +191,7 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 augroup reload_vimrc
     autocmd!
-    autocmd BufWritePost .vimrc source % 
+    autocmd bufwritepost ~/dotfiles/vimrc source $MYVIMRC
 augroup END
 
 " --------------------------------- "
@@ -312,6 +312,9 @@ omap s :normal vs<CR>
 " always on sign column
 autocmd BufEnter * sign define dummy
 autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
+
+" sudo inside vim
+cmap w!! w !sudo tee > /dev/null %
 
 " disable 'beep' sound in vim when pressing ESC
 set noerrorbells visualbell t_vb=
