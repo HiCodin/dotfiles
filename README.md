@@ -2,4 +2,4 @@
 
 My Tmux + Vim setup
 
-![Imgur](http://imgur.com/a/qbNrd)
+![Imgur](http://i.imgur.com/NpTasqP.png)
