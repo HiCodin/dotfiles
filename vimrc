@@ -60,6 +60,9 @@ Plug 'jwalton512/vim-blade'
 " TOML {{{
 Plug 'cespare/vim-toml'
 "}}}
+" Ruby {{{
+Plug 'vim-ruby/vim-ruby'
+"}}}
 " Fancy start screen for Vim {{{
 Plug 'mhinz/vim-startify'
 " }}}
@@ -289,6 +292,18 @@ map <Leader>x :call RangerChooser()<CR>
 nnoremap d "_d
 vnoremap d "_d
 
+" Make Y yank everything from the cursor to the end of the line. This makes Y
+" act more like C or D because by default, Y yanks the current line (i.e. the
+" same as yy).
+" source : https://blog.petrzemek.net/2016/04/06/things-about-vim-i-wish-i-knew-earlier/ 
+noremap Y y$
+
+" Make Ctrl-e jump to the end of the current line in the insert mode. This is
+" handy when you are in the middle of a line and would like to go to its end
+" without switching to the normal mode.
+" source : https://blog.petrzemek.net/2016/04/06/things-about-vim-i-wish-i-knew-earlier/ 
+inoremap <C-e> <C-o>$
+
 " change visual mode color
 hi Visual ctermbg=white ctermfg=black
 
@@ -296,7 +311,7 @@ hi Visual ctermbg=white ctermfg=black
 hi LineNr ctermbg=NONE ctermfg=yellow
 
 "  clear cursorline highlight
-hi clear CursorLine
+"hi clear CursorLine
 
 " turn off highlight until next search 
 nnoremap <silent> <esc><esc>  :noh<cr><esc>
@@ -308,9 +323,19 @@ set hidden
 nnoremap <Leader>p :bprev<cr>
 nnoremap <Leader>n :bnext<cr>
 
+" Quit with Q instead of :q!.
+noremap <silent> Q :q!<CR>
+
 " move cursor by display lines in wrapped text
 nnoremap j gj
 nnoremap k gk
+
+" Jump to the previous/next tab.
+noremap <silent> J gT
+noremap <silent> K gt
+
+" re-indents edited source code on the fly
+inoremap <F4> <Esc>m'ggVG=``zzgi
 
 " reduce delay when switching modes
 set timeoutlen=1000 ttimeoutlen=0
@@ -350,23 +375,32 @@ let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_smart_case=1
 let g:neocomplete#sources#syntax#min_keyword_length=3
 let g:neocomplete#lock_buffer_name_pattern= '\*ku\*'
+
 if !exists('g:neocomplete#sources#omni#input_patterns')
 		  let g:neocomplete#sources#omni#input_patterns = {}
 endif
+if !exists('g:neocomplete#sources#omni#force_omni_input_patterns')
+    let g:neocomplete#sources#omni#force_omni_input_patterns = {}
+endif
 let g:neocomplete#sources#omni#input_patterns.php =
 	\ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
-hi Pmenu ctermbg=8 ctermfg=15
-hi PmenuSel ctermbg=1 ctermfg=15
-hi PmenuSbar ctermbg=0
+
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby compiler ruby
 
 " }}}
 " MatchTagAlways {{{
