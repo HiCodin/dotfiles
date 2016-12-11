@@ -37,3 +37,6 @@ alias vim='/usr/local/bin/vim'
 
 # exit terminal
 alias x='exit'
+
+# change to dotfiles dir
+alias dotfiles='cd ~/dotfiles'
