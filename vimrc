@@ -19,9 +19,8 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" Colorschemes {{{
+" Theme {{{
 Plug 'oguzbilgic/sexy-railscasts-theme'
-Plug 'chriskempson/base16-vim'
 " }}}
 " Vim Airline {{{
 Plug 'vim-airline/vim-airline'
@@ -33,9 +32,6 @@ Plug 'scrooloose/nerdtree'
 " NERDCommenter {{{
 Plug 'scrooloose/nerdcommenter'
 "}}}
-" CtrlP {{{
-Plug 'ctrlpvim/ctrlp.vim'
-" }}}
 " Emmet {{{
 Plug 'mattn/emmet-vim'
 " }}}
@@ -55,12 +51,14 @@ Plug 'scrooloose/syntastic'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'posva/vim-vue'
+Plug 'moll/vim-node'
 "}}}
-" PHP Completion {{{
+" PHP {{{
 Plug 'shawncplus/phpcomplete.vim'
+Plug 'jwalton512/vim-blade'
 "}}}
-" Indent Line {{{
-Plug 'Yggdroot/indentLine'
+" TOML {{{
+Plug 'cespare/vim-toml'
 "}}}
 " Fancy start screen for Vim {{{
 Plug 'mhinz/vim-startify'
@@ -68,29 +66,43 @@ Plug 'mhinz/vim-startify'
 " FastFold {{{
 Plug 'konfekt/fastfold'
 " }}}
+" Toggle vim cursor in iTerm2{{{
+Plug 'jszakmeister/vim-togglecursor'
+" }}}
+" fzf {{{
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" }}}
 
 call plug#end()
 
 " }}}
 
-                                                     " ----------------------------------------------------------------------- "
-                                                     "                               Vim Settings                              "
-                                                     " ----------------------------------------------------------------------- "
+                                                    " ----------------------------------------------------------------------- "
+                                                    "                               Vim Settings                              "
+                                                    " ----------------------------------------------------------------------- "
 
 " Vim Settings {{{
 
 " -------------------------------- "
 "          colorscheme             "
 " -------------------------------- "
+
+set termguicolors
 set background=dark
+colorscheme sexy-railscasts
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  set t_ut=
+endif
+
 " -------------------------------- "
 "            GUI Config            "
 " -------------------------------- "
-set guioptions-=m
-set guioptions-=T
-set guioptions-=L " no scrollbar on the left side
-set guioptions-=r " no scrollbar on the right side
-set t_Co=256
+
+"set t_Co=256
+set encoding=utf8
 
 " -------------------------------- "
 "        Case Sensitivity          "
@@ -191,7 +203,7 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 augroup reload_vimrc
     autocmd!
-    autocmd bufwritepost ~/dotfiles/vimrc source $MYVIMRC
+    autocmd bufwritepost ~/dotfiles/vimrc source ~/.vimrc
 augroup END
 
 " --------------------------------- "
@@ -207,6 +219,7 @@ set clipboard=unnamed
 
 " highlight folded text in gui and cterm
 hi Folded ctermfg=222 ctermbg=235 guifg=#FFC66D
+hi clear Conceal
 
 " hide mode status as well as completion message
 set noshowmode
@@ -261,7 +274,6 @@ function! HLNext (blinktime)
 endfunction
 
 " Use ranger as file explorer
-
 fun! RangerChooser()
   exec "silent !ranger --choosefile=/tmp/chosenfile " . expand("%:p:h")
   if filereadable('/tmp/chosenfile')
@@ -295,7 +307,6 @@ set hidden
 " display buffer list and invoke buffer command 
 nnoremap <Leader>p :bprev<cr>
 nnoremap <Leader>n :bnext<cr>
-nnoremap <leader>b :ls<CR>:b
 
 " move cursor by display lines in wrapped text
 nnoremap j gj
@@ -323,9 +334,9 @@ if has('autocmd')
 endif
 " }}}
 
-                                                     " ----------------------------------------------------------------------- "
-                                                     "                              Plugins Settings                           "
-                                                     " ----------------------------------------------------------------------- "
+                                                    " ----------------------------------------------------------------------- "
+                                                    "                              Plugins Settings                           "
+                                                    " ----------------------------------------------------------------------- "
 
 " Neocomplete {{{
 
@@ -334,6 +345,7 @@ endif
 " ------------------------------------------------- "
 let g:acp_enableAtStartup = 0
 set completeopt-=preview
+let g:neocomplete#max_list = 10
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_smart_case=1
 let g:neocomplete#sources#syntax#min_keyword_length=3
@@ -382,10 +394,10 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#wordcount#enabled = 0
 let g:airline_section_b = ''
 let g:airline_section_c = ''
-let g:airline_section_x = ''
+"let g:airline_section_x = ''
 let g:airline_section_y = airline#section#create_right([' %l:%c'])
 let g:airline_section_z = ''
-let g:airline_theme='ubaryd'
+let g:airline_theme='murmur'
 let g:airline_mode_map = {
        \ '__' : '-',
        \ 'n'  : 'N',
@@ -407,59 +419,9 @@ let g:airline_mode_map = {
 "           NERDTree setting           "
 " ------------------------------------ "
 nnoremap et :NERDTreeToggle <cr>
-let g:NERDTreeWinSize=30
-let g:NERDTreeShowHidden=1
-let g:NERDTreeDirArrows=1
-"let g:NERDTreeDirArrowExpandable='+'
-"let g:NERDTreeDirArrowCollapsible='-'
-let g:NERDTreeMinimalUI=1
-let g:NERDTreeChDirMode=2
-let g:NERDTreeHijackNetrw=1
-let g:NERDTreeQuitOnOpen=1
-nnoremap <leader>f :NERDTreeFind<cr>
-" Highlight Files in NERDTree {{{
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-au VimEnter * call NERDTreeHighlightFile('jade', 'green', 'none', 'green', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('styl', '219', 'none', 'cyan', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('css', '219', 'none', 'cyan', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('coffee', '130', 'none', 'red', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('js', '208', 'none', '#ffa500', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('rb', '196', 'none', '#ffa500', 'NONE')
-au VimEnter * call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', 'NONE')
-
-" }}}
+noremap <leader>f :NERDTreeFind<cr>
 
 " }}} 
-" Ctrl-P {{{
-
-" ------------------------------------ "
-"            Ctrl-P settings           "
-" ------------------------------------ "
-let g:ctrlp_map = '<leader>l'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 0
-
-let g:ctrlp_buffer_func = { 'enter': 'BrightHighlightOn', 'exit':  'BrightHighlightOff', }
-function! BrightHighlightOn()
-    hi CursorLine ctermbg=NONE ctermfg=red guifg=NONE guibg=NONE
-endfunction
-
-function! BrightHighlightOff()
-    hi CursorLine ctermbg=NONE ctermfg=red guifg=NONE guibg=NONE
-endfunction
-hi CtrlPNoEntries ctermfg=white ctermbg=black
-" }}}
 " Tagbar {{{
 
 " ------------------------------------------ "
@@ -512,8 +474,52 @@ highlight SyntasticErrorSign ctermfg=196 ctermbg=NONE
 highlight SyntasticWarningSign ctermfg=166 ctermbg=NONE
 
 " }}}
-" Indent Line {{{
-let g:indentLine_color_term = 237
-let g:indentLine_char ='│' 
-let g:indentLine_fileTypeExclude = ['vim']
+" Javascript {{{
+
+" ----------------------------------------------- "
+"            Setting for Javascript               "
+" ----------------------------------------------- "
+
+set conceallevel=1
+set concealcursor=nvic
+let g:javascript_conceal_function       = "ƒ"
+let g:javascript_conceal_null           = "ø"
+let g:javascript_conceal_this           = "@"
+let g:javascript_conceal_return         = "⇚"
+let g:javascript_conceal_undefined      = "¿"
+let g:javascript_conceal_NaN            = "ℕ"
+let g:javascript_conceal_prototype      = "¶"
+let g:javascript_conceal_static         = "•"
+let g:javascript_conceal_super          = "Ω"
+let g:javascript_conceal_arrow_function = "⇒"
+
+" }}}
+" Toggle Cursor{{{
+
+let g:togglecursor_default = "block"
+let g:togglecursor_insert  = "line"
+let g:togglecursor_leave   = "block"
+let g:togglecursor_replace = "underline"
+
+" }}} 
+" FZF related {{{
+
+let g:fzf_layout = { 'down': '~40%' }
+nnoremap <silent> <leader>l :FZF<cr>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>w :Windows<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>ft :Filetypes<CR>
+
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "\!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 " }}}

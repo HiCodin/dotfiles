@@ -7,10 +7,11 @@ alias soshi='source ~/.zsh_aliases'
 alias soz='source ~/.zshrc'
 alias rmdir='rm -rf'
 
-# git alias
-alias ll='ls -alF'
+# list alias
+alias l='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
+alias ll='ls -CF'
+alias t='tree'
 
 # tmux alias
 alias tmus='tmux new -s'
