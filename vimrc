@@ -471,7 +471,7 @@ function! ChangeStatuslineColor()
   elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
     exe 'hi! StatusLine ctermfg=005 guifg=black gui=None cterm=None'
   elseif (mode() ==# 'i')
-    exe 'hi! StatusLine ctermfg=004 guifg=#6CBCE8 gui=None cterm=None'
+    exe 'hi! StatusLine ctermfg=004 guifg=black gui=NONE cterm=None'
   else
     exe 'hi! StatusLine ctermfg=006 guifg=black gui=None cterm=None'
   endif
@@ -531,7 +531,7 @@ set statusline+=%7*\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ " Encoding & Fileformat
 set statusline+=%8*\ %-3(%{FileSize()}%)   
 set statusline+=%8*\ %3p%%\ \ %l:\ %3c\                 " Rownumber/total (%)
 set statusline+=%#warningmsg#
-set statusline+=%0*\ %{SyntasticStatuslineFlag()}        " Syntastic errors
+set statusline+=%0*\ %{SyntasticStatuslineFlag()}\%=\   " Syntastic errors
 
 " }}}
 " NERDTree {{{
