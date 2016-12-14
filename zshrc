@@ -10,6 +10,7 @@ export TERM="xterm-256color"
 export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
 export PATH=$PATH:/usr/local/mysql/bin
 export PATH="$PATH:$HOME/.composer/vendor/bin"
+export PATH="/usr/local/sbin:$PATH"
 
 # Source zim
 if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then

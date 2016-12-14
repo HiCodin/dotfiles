@@ -55,9 +55,7 @@ Plug 'moll/vim-node'
 " PHP {{{
 Plug 'shawncplus/phpcomplete.vim'
 Plug 'jwalton512/vim-blade'
-"}}}
-" TOML {{{
-Plug 'cespare/vim-toml'
+Plug 'vim-php/phpctags'
 "}}}
 " Ruby {{{
 Plug 'vim-ruby/vim-ruby'
@@ -74,10 +72,13 @@ Plug 'jszakmeister/vim-togglecursor'
 " fzf {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" }}}
+" Fugitive {{{
 Plug 'tpope/vim-fugitive'
+"}}}
+" Buffer/Tabline {{{
 Plug 'ap/vim-buftabline'
 " }}}
-
 call plug#end()
 
 " }}}
@@ -235,9 +236,6 @@ hi clear Conceal
 set noshowmode
 set shortmess-=m
 set shortmess+=cWIs
-
-" open vimrc in a new tab
-nmap <leader>cv :tabedit $MYVIMRC<CR>  
 
 " Show Matching tags/parens/ ect
 set showmatch 
@@ -511,7 +509,7 @@ endfunction
 function! GitInfo()
   let git = fugitive#head()
   if git != ''
-    return ' '.fugitive#head()
+    return '  '.fugitive#head()
   else
     return ''
 endfunction
@@ -521,17 +519,17 @@ set laststatus=2
 set statusline=
 set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
-set statusline+=%8*\ [%n]                                " buffernr
-set statusline+=%8*\ %{GitInfo()}                        " Git Branch name
-set statusline+=%8*\ %<%F\ %{ReadOnly()}\ %m\ %w\        " File+path
+set statusline+=%8*\ \ \[%n]\                            " buffernr
+set statusline+=%8*\ %<%t\ %{ReadOnly()}\ %m\ %w         " File+path
 set statusline+=%*
 set statusline+=%9*\ %=                                  " Space
+set statusline+=%8*\ %{GitInfo()}\                       " Git Branch name
 set statusline+=%8*\ %y\                                 " FileType
 set statusline+=%7*\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ " Encoding & Fileformat
 set statusline+=%8*\ %-3(%{FileSize()}%)   
-set statusline+=%8*\ %3p%%\ \ %l:\ %3c\                 " Rownumber/total (%)
+set statusline+=%8*\ \ %l:\ %3c\                        " Rownumber/total (%)
 set statusline+=%#warningmsg#
-set statusline+=%0*\ %{SyntasticStatuslineFlag()}\%=\   " Syntastic errors
+set statusline+=%0*\ %{SyntasticStatuslineFlag()}\%=\    " Syntastic errors
 
 " }}}
 " NERDTree {{{
@@ -541,7 +539,13 @@ set statusline+=%0*\ %{SyntasticStatuslineFlag()}\%=\   " Syntastic errors
 " ------------------------------------ "
 nnoremap et :NERDTreeToggle <cr>
 noremap <leader>f :NERDTreeFind<cr>
-
+let g:NERDTreeWinSize=30
+let g:NERDTreeShowHidden=1
+let g:NERDTreeDirArrows=1
+let g:NERDTreeMinimalUI=1
+let g:NERDTreeChDirMode=2
+let g:NERDTreeHijackNetrw=1
+let g:NERDTreeQuitOnOpen=1
 " }}} 
 " Tagbar {{{
 
@@ -563,6 +567,7 @@ let g:tagbar_type_css = {
         \ 'i:identities'
     \ ]
 \ }
+
 " }}}
 " Emmet {{{
 
@@ -626,22 +631,127 @@ let g:togglecursor_replace = "underline"
 " }}} 
 " FZF related {{{
 
-let g:fzf_layout = { 'down': '~40%' }
-nnoremap <silent> <leader>l :FZF<cr>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>w :Windows<CR>
-nnoremap <silent> <leader>? :History<CR>
-nnoremap <silent> <leader>ft :Filetypes<CR>
+let g:fzf_layout = {}
 
-" --column: Show column number
-" --line-number: Show line number
-" --no-heading: Do not show file headings in results
-" --fixed-strings: Search term as a literal string
-" --ignore-case: Case insensitive search
-" --no-ignore: Do not respect .gitignore, etc...
-" --hidden: Search hidden files and folders
-" --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-" --color: Search color options
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "\!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
+nnoremap <silent> <leader>w :Windows<CR>
+nnoremap <silent> <leader>bg :BTags<CR>
+nnoremap <silent> <leader>g :Tags<CR>
+nnoremap <silent> <leader>? :GFiles?<CR>
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" [Files] Extra options for fzf
+"   e.g. File preview using Highlight
+"        (http://www.andre-simon.de/doku/highlight/en/highlight.html)
+let g:fzf_files_options =
+  \ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --ignore-case --hidden --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('right:60%')
+  \           : fzf#vim#with_preview('right:60%:hidden', '?'),
+  \   <bang>0)
+
+" Select buffer
+
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+
+" Jump to tags
+
+function! s:tags_sink(line)
+  let parts = split(a:line, '\t\zs')
+  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
+  execute 'silent e' parts[1][:-2]
+  let [magic, &magic] = [&magic, 0]
+  execute excmd
+  let &magic = magic
+endfunction
+
+function! s:tags()
+  if empty(tagfiles())
+    echohl WarningMsg
+    echom 'Preparing tags'
+    echohl None
+    call system('ctags -R')
+  endif
+
+  call fzf#run({
+  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+  \            '| grep -v -a ^!',
+  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+  \ 'down':    '100%',
+  \ 'sink':    function('s:tags_sink')})
+endfunction
+
+command! Tags call s:tags()
+
+" Jump to tags in the current buffer
+
+function! s:align_lists(lists)
+  let maxes = {}
+  for list in a:lists
+    let i = 0
+    while i < len(list)
+      let maxes[i] = max([get(maxes, i, 0), len(list[i])])
+      let i += 1
+    endwhile
+  endfor
+  for list in a:lists
+    call map(list, "printf('%-'.maxes[v:key].'s', v:val)")
+  endfor
+  return a:lists
+endfunction
+
+
+function! s:btags_source()
+  let lines = map(split(system(printf(
+    \ 'ctags -f - --sort=no --excmd=number --language-force=%s %s',
+    \ &filetype, expand('%:S'))), "\n"), 'split(v:val, "\t")')
+  if v:shell_error
+    throw 'failed to extract tags'
+  endif
+  return map(s:align_lists(lines), 'join(v:val, "\t")')
+endfunction
+
+function! s:btags_sink(line)
+  execute split(a:line, "\t")[2]
+endfunction
+
+function! s:btags()
+  try
+    call fzf#run({
+    \ 'source':  s:btags_source(),
+    \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+    \ 'down':    '100%',
+    \ 'sink':    function('s:btags_sink')})
+  catch
+    echohl WarningMsg
+    echom v:exception
+    echohl None
+  endtry
+endfunction
+
+command! BTags call s:btags()
+
 " }}}
