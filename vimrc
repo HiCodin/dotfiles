@@ -26,7 +26,7 @@ Plug 'alessandroyorba/despacio'
 Plug 'alessandroyorba/sierra'
 " }}}
 " NERDTree {{{
-Plug 'scrooloose/nerdtree' 
+Plug 'scrooloose/nerdtree'
 " }}}
 " NERDCommenter {{{
 Plug 'scrooloose/nerdcommenter'
@@ -79,6 +79,7 @@ Plug 'tpope/vim-fugitive'
 " Buffer/Tabline {{{
 Plug 'ap/vim-buftabline'
 " }}}
+
 call plug#end()
 
 " }}}
@@ -426,19 +427,17 @@ highlight MatchTag ctermfg=208 guifg=#FF4500
 
 " source : https://gabri.me/blog/diy-vim-statusline
 
-let g:buftabline_indicators=1
 set showtabline=2
-set tabline="%1T"
 set laststatus=2
 
-highlight User1 cterm=None gui=None ctermfg=007 guifg=white
-highlight User2 cterm=None gui=None ctermfg=008 guifg=white
-highlight User3 cterm=None gui=None ctermfg=008 guifg=white
-highlight User4 cterm=None gui=None ctermfg=008 guifg=white
-highlight User5 cterm=None gui=None ctermfg=008 guifg=white
-highlight User7 cterm=None gui=None ctermfg=008 guifg=white
-highlight User8 cterm=None gui=None ctermfg=008 guifg=white
-highlight User9 cterm=None gui=None ctermfg=007 guifg=white
+highlight User1 cterm=None gui=None ctermfg=white guifg=white
+highlight User2 cterm=None gui=None ctermfg=white guifg=white
+highlight User3 cterm=None gui=None ctermfg=white guifg=white
+highlight User4 cterm=None gui=None ctermfg=white guifg=white
+highlight User5 cterm=None gui=None ctermfg=white guifg=white
+highlight User7 cterm=None gui=None ctermfg=white guifg=white
+highlight User8 cterm=None gui=None ctermfg=white guifg=white
+highlight User9 cterm=None gui=None ctermfg=white guifg=white
 
 let g:currentmode={
       \ 'n'  : 'N ',
@@ -465,13 +464,13 @@ let g:currentmode={
 " Automatically change the statusline color depending on mode
 function! ChangeStatuslineColor()
   if (mode() =~# '\v(n|no)')
-    exe 'hi! StatusLine ctermfg=008 guifg=black guibg=white gui=None cterm=None'
+    exe 'hi! StatusLine ctermfg=white guifg=black guibg=white gui=None cterm=None'
   elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
-    exe 'hi! StatusLine ctermfg=005 guifg=black gui=None cterm=None'
+    exe 'hi! StatusLine ctermfg=white guifg=black gui=None cterm=None'
   elseif (mode() ==# 'i')
-    exe 'hi! StatusLine ctermfg=004 guifg=black gui=NONE cterm=None'
+    exe 'hi! StatusLine ctermfg=white guifg=black gui=NONE cterm=None'
   else
-    exe 'hi! StatusLine ctermfg=006 guifg=black gui=None cterm=None'
+    exe 'hi! StatusLine ctermfg=white guifg=black gui=None cterm=None'
   endif
   return ''
 endfunction
@@ -530,6 +529,7 @@ set statusline+=%8*\ %-3(%{FileSize()}%)
 set statusline+=%8*\ \ %l:\ %3c\                        " Rownumber/total (%)
 set statusline+=%#warningmsg#
 set statusline+=%0*\ %{SyntasticStatuslineFlag()}\%=\    " Syntastic errors
+set statusline+=%*
 
 " }}}
 " NERDTree {{{
