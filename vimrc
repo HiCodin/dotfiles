@@ -752,3 +752,6 @@ endfunction
 command! BTags call s:btags()
 
 " }}}
+" Languages Specific {{{
+au BufNewFile,BufRead *.ejs set filetype=html
+" }}}
