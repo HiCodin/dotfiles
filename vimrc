@@ -73,8 +73,9 @@ Plug 'jszakmeister/vim-togglecursor'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " }}}
-" Fugitive {{{
+" Git Related {{{
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 "}}}
 " Buffer/Tabline {{{
 Plug 'ap/vim-buftabline'
