@@ -8,10 +8,11 @@ alias soz='source ~/.zshrc'
 alias rmdir='rm -rf'
 
 # list alias
-alias l='ls -alF'
-alias la='ls -A'
-alias ll='ls -CF'
-alias t='tree'
+#alias l='ls -alF'
+alias l='exa -bghla'
+alias la='exa -lh'
+alias ll='exa'
+alias t='exa -lT'
 
 # tmux alias
 alias tmus='tmux new -s'
@@ -38,7 +39,9 @@ alias vim='/usr/local/bin/vim'
 # exit terminal
 alias x='exit'
 
-# change to dotfiles dir
+# change to dir
 alias dotfiles='cd ~/dotfiles'
+alias sites='cd ~/code/sites'
 
+# phpctags
 alias phpctags='php ~/phpctags'

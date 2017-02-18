@@ -197,8 +197,6 @@ set autoindent " auto-indent
 set smartindent
 set smarttab  " use tabs at the start of the line, spaces elsewhere
 
-" Ruby Specific
-autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 
 " ---------------------------------------------- "
 "        Making Split Navigation easier          "
@@ -256,19 +254,19 @@ set fillchars=vert:\│
 hi VertSplit ctermfg=black ctermbg=NONE
 
 " change SignColumn color
-"hi SignColumn ctermbg=NONE 
+highlight SignColumn guibg=NONE
 
 " warning if anything goes over 81 columns
-highlight ColorColumn ctermbg=red 
+highlight ColorColumn guibg=red 
 call matchadd('ColorColumn', '\%81v', 100)
 
 " highlight searches
 set hlsearch
-hi Search ctermfg=black ctermbg=white
+"hi Search ctermfg=black ctermbg=white
 
 " Show next match 
 set incsearch
-hi IncSearch ctermfg=black ctermbg=white
+"hi IncSearch ctermfg=black ctermbg=white
 
 " blink highlight searches
 nnoremap <silent> n n:call HLNext(0.1)<cr>
@@ -312,10 +310,10 @@ noremap Y y$
 inoremap <C-e> <C-o>$
 
 " change visual mode color
-hi Visual ctermbg=white ctermfg=black
+"hi Visual ctermbg=white ctermfg=black
 
 " change quickfix window line color
-hi LineNr ctermbg=NONE ctermfg=yellow
+"hi LineNr ctermbg=NONE ctermfg=yellow
 
 "  clear cursorline highlight
 "hi clear CursorLine
@@ -754,5 +752,14 @@ command! BTags call s:btags()
 
 " }}}
 " Languages Specific {{{
+
 au BufNewFile,BufRead *.ejs set filetype=html
+
+" Ruby Specific
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+
+" }}}
+" Git Gutter {{{
+let g:gitgutter_override_sign_column_highlight = 0
+
 " }}}
