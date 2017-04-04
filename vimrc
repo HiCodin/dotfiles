@@ -507,13 +507,12 @@ endfunction
 function! GitInfo()
   let git = fugitive#head()
   if git != ''
-    return '  '.fugitive#head()
+    return ' '.fugitive#head()
   else
     return ''
 endfunction
 
 " http://stackoverflow.com/a/10416234/213124
-set laststatus=2
 set statusline=
 set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
@@ -523,7 +522,7 @@ set statusline+=%*
 set statusline+=%9*\ %=                                  " Space
 set statusline+=%8*\ %{GitInfo()}\                       " Git Branch name
 set statusline+=%8*\ %y\                                 " FileType
-set statusline+=%7*\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ " Encoding & Fileformat
+set statusline+=%7*\ %{(&fenc!=''?&fenc:&enc)}\          " Encoding
 set statusline+=%8*\ %-3(%{FileSize()}%)   
 set statusline+=%8*\ \ %l:\ %3c\                        " Rownumber/total (%)
 set statusline+=%#warningmsg#
