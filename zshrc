@@ -1,22 +1,18 @@
-source ~/antigen/antigen.zsh
+source "${HOME}/.zgen/zgen.zsh"
 
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
+# if the init scipt doesn't exist
+if ! zgen saved; then
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-antigen bundle command-not-found
-
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-history-substring-search
-
-# Load the theme.
-antigen theme skuridin/oh-my-zsh-node-theme node.zsh-theme 
-
-# Tell Antigen that you're done.
-antigen apply
-
+  # specify plugins here
+  zgen oh-my-zsh
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/sudo
+  zgen oh-my-zsh plugins/command-not-found
+  zgen oh-my-zsh themes/arrow
+  
+  # generate the init script from plugins above
+  zgen save
+fi
 
 export TERM="xterm-256color"
 export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
@@ -47,3 +43,4 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

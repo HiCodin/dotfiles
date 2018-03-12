@@ -31,6 +31,7 @@ alias phpl='~/phplint-3.0_20160307/phpl'
 
 # python 3
 alias python='/usr/local/bin/python3'
+alias pip='pip3'
 
 # Editor
 alias emacs='/usr/local/bin/emacs'
@@ -45,3 +46,6 @@ alias sites='cd ~/code/sites'
 
 # phpctags
 alias phpctags='php ~/phpctags'
+
+# ngrok
+alias ngrok='~/ngrok'
